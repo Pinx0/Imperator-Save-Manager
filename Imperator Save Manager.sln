@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Imperator Save Parser", "Imperator Save Parser\Imperator Save Parser.csproj", "{FBC210CE-B2E2-458F-998D-48A5BD26E04E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FBC210CE-B2E2-458F-998D-48A5BD26E04E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBC210CE-B2E2-458F-998D-48A5BD26E04E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBC210CE-B2E2-458F-998D-48A5BD26E04E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBC210CE-B2E2-458F-998D-48A5BD26E04E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5E36BEDE-AD29-41E4-8D45-6A676BDE663D}
+	EndGlobalSection
+EndGlobal
