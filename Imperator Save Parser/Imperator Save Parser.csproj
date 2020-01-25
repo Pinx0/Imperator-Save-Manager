@@ -2,7 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>Imperator_Save_Parser</RootNamespace>
+    <RootNamespace>ImperatorSaveParser</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Pdoxcl2Sharp\src\Pdoxcl2Sharp\Pdoxcl2Sharp.csproj" />
+  </ItemGroup>
 
 </Project>
