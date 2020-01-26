@@ -11,6 +11,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="Pdoxcl2Sharp">
       <HintPath>..\Pdoxcl2Sharp.dll</HintPath>
     </Reference>

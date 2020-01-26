@@ -22,7 +22,9 @@ namespace ImperatorStats
         {
             services.AddControllersWithViews();
             services.AddDbContext<MySqlContext>(options =>
-                options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+               options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddRazorPages().AddRazorRuntimeCompilation();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -31,6 +33,7 @@ namespace ImperatorStats
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseBrowserLink();
             }
             else
             {
