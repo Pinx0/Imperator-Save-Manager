@@ -24,7 +24,12 @@ namespace ImperatorStats.Controllers
         {
             return View();
         }
-        [HttpPost("FileUpload")]
+        public IActionResult Stats()
+        {
+            return View(new StatsViewModel(null));
+        }
+        [HttpPost]
+        [RequestSizeLimit(200000000)]
         public async Task<IActionResult> Stats(List<IFormFile> files)
         {
             Save save = null;
