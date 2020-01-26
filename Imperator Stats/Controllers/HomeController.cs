@@ -28,6 +28,10 @@ namespace ImperatorStats.Controllers
         {
             return View(new StatsViewModel(null));
         }
+        public IActionResult SaveList()
+        {
+            return View(new SavesListViewModel(_db.Saves.Take(20).ToList()));
+        }
         [HttpPost]
         [RequestSizeLimit(200000000)]
         public async Task<IActionResult> Stats(List<IFormFile> files)
