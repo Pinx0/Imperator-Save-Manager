@@ -79,7 +79,8 @@ namespace ImperatorStats.Controllers
             var countries =_db.Countries.Where(x => x.SaveId == id)
                 .Include(x => x.CurrencyData)
                 .Include(x => x.Players)
-                .OrderBy(x => x.Tag).ToList();
+                .Where(x => x.Players.Count > 0)
+                .OrderByDescending(x => x.TotalPopulation).ToList();
             return View(new EconomyViewModel(countries));
         }
        

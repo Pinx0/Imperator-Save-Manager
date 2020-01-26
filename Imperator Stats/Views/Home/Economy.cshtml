@@ -30,6 +30,15 @@
             <th>
                 @Html.DisplayNameFor(model => model.Countries[0].CurrencyData.MilitaryExperience)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Countries[0].TotalCohorts)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Countries[0].TotalPopulation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Countries[0].TotalPowerBase)
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -59,6 +68,15 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CurrencyData.MilitaryExperience)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalCohorts)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalPopulation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalPowerBase)
             </td>
         </tr>
     }
