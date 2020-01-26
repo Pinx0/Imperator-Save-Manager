@@ -8,8 +8,8 @@ namespace ImperatorSaveParser
     {
         public int SaveId { get; set; }
         public string SaveKey { get; set; }
-        public ICollection<Family> Families { get; private set; } = new List<Family>();
-        public ICollection<Country> Countries { get; private set; } = new List<Country>();
+        public ICollection<Family> Families { get; set; } = new List<Family>();
+        public ICollection<Country> Countries { get; set; } = new List<Country>();
         public DateTime Date { get; private set; }
 
         public void TokenCallback(ParadoxParser parser, string token)

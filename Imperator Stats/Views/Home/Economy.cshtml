@@ -1,0 +1,60 @@
+﻿@model EconomyViewModel
+@{
+    ViewData["Title"] = "Economy Info";
+}
+<h1>@ViewData["Title"]</h1>
+<table id="myTable" class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Countries[0].Tag)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Countries[0].AveragedIncome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Countries[0].CurrencyData.Gold)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Countries[0].EstimatedMonthlyIncome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Countries[0].CurrencyData.PoliticalInfluence)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Countries[0].CurrencyData.Manpower)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Countries[0].CurrencyData.MilitaryExperience)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Countries)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tag)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AveragedIncome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrencyData.Gold)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstimatedMonthlyIncome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrencyData.PoliticalInfluence)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrencyData.Manpower)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrencyData.MilitaryExperience)
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
