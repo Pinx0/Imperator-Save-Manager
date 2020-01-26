@@ -150,7 +150,7 @@ namespace ImperatorSaveParser
                     parser.Parse(new IgnoredEntity());
                     break;
                 case "played_country":
-                    parser.Parse(new IgnoredEntity());
+                    parser.Parse(new CountryPlayer(this));
                     break;
             }
         }

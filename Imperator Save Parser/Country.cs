@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Pdoxcl2Sharp;
 
 namespace ImperatorSaveParser
@@ -16,6 +17,7 @@ namespace ImperatorSaveParser
         public CountryTechnologies Technology { get; set; }
         public CountryEconomy Economy { get; set; }
         public ICollection<CountryTechnology> Technologies { get; set; } = new List<CountryTechnology>();
+        public ICollection<CountryPlayer> Players { get; set; } = new List<CountryPlayer>();
         public int StartingPopulation { get; set; }
         public double MonthlyManpower { get; set; }
         public double CurrentIncome { get; set; }
@@ -33,6 +35,15 @@ namespace ImperatorSaveParser
         public double Centralization { get; set; }
         public DateTime LastWar { get; set; }
         public DateTime LastBattleWon { get; set; }
+
+        public string PlayedBy
+        {
+            get
+            {
+                if (Players.Count == 0) return "";
+                return string.Join(", ", Players.Select(p => p.PlayerName).ToArray());
+            }
+        }
 
         public Country(Save save, int countryId)
         {
