@@ -10,6 +10,9 @@
                 @Html.DisplayNameFor(model => model.Countries[0].Tag)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Countries[0].PlayedBy)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Countries[0].AveragedIncome)
             </th>
             <th>
@@ -35,6 +38,9 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Tag)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlayedBy)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AveragedIncome)

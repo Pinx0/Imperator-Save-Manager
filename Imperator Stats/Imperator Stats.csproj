@@ -15,6 +15,12 @@
     <Compile Remove="Migrations\20200126022400_Initial.Designer.cs" />
     <Compile Remove="Migrations\20200126182137_6.cs" />
     <Compile Remove="Migrations\20200126182137_6.Designer.cs" />
+    <Compile Remove="Migrations\20200126190946_CountyPlayer.cs" />
+    <Compile Remove="Migrations\20200126190946_CountyPlayer.Designer.cs" />
+    <Compile Remove="Migrations\20200126191045_CountryPlayer.cs" />
+    <Compile Remove="Migrations\20200126191045_CountryPlayer.Designer.cs" />
+    <Compile Remove="Migrations\20200126191139_CountryPlayer.cs" />
+    <Compile Remove="Migrations\20200126191139_CountryPlayer.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
