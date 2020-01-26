@@ -36,6 +36,12 @@
     <ProjectReference Include="..\Imperator Save Parser\Imperator Save Parser.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Pdoxcl2Sharp">
+      <HintPath>..\Pdoxcl2Sharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 
 
 </Project>
