@@ -1,0 +1,31 @@
+﻿@model SavesListViewModel
+@{
+    ViewData["Title"] = "Saves";
+}
+<h1>@ViewData["Title"]</h1>
+
+<table id="myTable" class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Saves[0].SaveId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Saves[0].SaveKey)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Saves)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SaveId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SaveKey)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

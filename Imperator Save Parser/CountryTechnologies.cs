@@ -1,22 +1,16 @@
-﻿using System.Collections.Generic;
-using Pdoxcl2Sharp;
+﻿using Pdoxcl2Sharp;
 
 namespace ImperatorSaveParser
 {
     public class CountryTechnologies: IParadoxRead
     { 
-        public Country Country { get; set; }
+        public Country Country { get; }
 
         public CountryTechnologies(Country country)
         {
             Country = country;
         }
 
-        public CountryTechnologies()
-        {
-            
-        }
-     
         public void TokenCallback(ParadoxParser parser, string token)
         {
             switch (token)
