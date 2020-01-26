@@ -61,7 +61,6 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
-    font-family: 'Lato', sans-serif;
 }
 .footer {
   position: absolute;
@@ -70,3 +69,46 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+/* Custom styles */
+body {
+    font-family: 'Lato', sans-serif;
+}
+
+/* Header */
+.navbar-brand img {
+    max-width: 200px;
+}
+.navbar-nav {
+    font-family: 'Cinzel', serif;
+    font-size: 20px;
+}
+.navbar-nav li a{
+    position: relative;
+}
+.navbar-light .navbar-nav .nav-link {
+    color: #c1a45a;
+}
+.navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover {
+    color: #c1a45a;
+}
+.navbar-nav li a:hover:before {
+    background-color: #c1a45a;
+}
+.navbar-nav li a:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 3px;
+    background-color: transparent;
+    transition: background-color .5s ease;
+}
+
+/* Generales */
+h1 {
+    font-family: 'Cinzel', serif;
+    color: #c1a45a;
+}
+

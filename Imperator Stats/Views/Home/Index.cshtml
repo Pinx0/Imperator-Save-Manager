@@ -3,16 +3,18 @@
 }
 
     <div class="text-center">
-        <h1 class="display-4">Load save</h1>
-        <form method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="UploadSave">
-            <div class="form-group">
-                <div class="col-md-10">
-                    <input type="file" name="files" multiple />
-                </div>
+        <h1 class="mb-5">Imperator Rome Stats</h1>
+        <div class="w-">
+
+        </div>
+        <form method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="Stats">
+            <div class="custom-file">
+                <input type="file" name="files" class="custom-file-input" multiple />
+                <label class="custom-file-label" for="customFile"></label>
             </div>
             <div class="form-group">
                 <div class="col-md-10">
-                    <input type="submit" value="Upload" class="btn-primary"/>
+                    <input type="submit" value="Upload" class="btn-primary" />
                 </div>
             </div>
         </form>
