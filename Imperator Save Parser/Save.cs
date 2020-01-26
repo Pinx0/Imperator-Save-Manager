@@ -5,12 +5,18 @@ namespace ImperatorSaveParser
 {
     public class Save : IParadoxRead
     {
+        public int SaveId { get; set; }
+        public string SaveKey { get; set; }
         public FamilyManager FamilyManager { get; private set; }
         public CountryManager CountryManager { get; private set; }
         public DateTime Date { get; private set; }
 
         public void TokenCallback(ParadoxParser parser, string token)
         {
+            if (token.StartsWith("SAV") && SaveKey == null)
+            {
+                SaveKey = token;
+            }
             switch (token)
             {
                 case "save_game_version":
@@ -50,7 +56,7 @@ namespace ImperatorSaveParser
                     parser.Parse(new IgnoredEntity());
                     break;
                 case "family":
-                    FamilyManager = parser.Parse(new FamilyManager());
+                    FamilyManager = parser.Parse(new FamilyManager(this));
                     break;
                 case "character":
                     parser.Parse(new IgnoredEntity());
@@ -65,7 +71,7 @@ namespace ImperatorSaveParser
                     parser.Parse(new IgnoredEntity());
                     break;
                 case "country":
-                    CountryManager = parser.Parse(new CountryManager());
+                    CountryManager = parser.Parse(new CountryManager(this));
                     break;
                 case "state":
                     parser.Parse(new IgnoredEntity());

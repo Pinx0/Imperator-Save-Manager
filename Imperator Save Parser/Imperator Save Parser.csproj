@@ -5,6 +5,10 @@
     <RootNamespace>ImperatorSaveParser</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <WarningLevel>0</WarningLevel>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\..\Pdoxcl2Sharp\src\Pdoxcl2Sharp\Pdoxcl2Sharp.csproj" />
   </ItemGroup>

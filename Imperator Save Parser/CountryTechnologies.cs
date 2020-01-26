@@ -1,29 +1,37 @@
-﻿using Pdoxcl2Sharp;
+﻿using System.Collections.Generic;
+using Pdoxcl2Sharp;
 
 namespace ImperatorSaveParser
 {
     public class CountryTechnologies: IParadoxRead
     { 
-        public CountryTechnology Military { get; set; }
-        public CountryTechnology Civic { get; set; }
-        public CountryTechnology Oratory { get; set; }
-        public CountryTechnology Religious { get; set; }
+        public Country Country { get; set; }
+
+        public CountryTechnologies(Country country)
+        {
+            Country = country;
+        }
+
+        public CountryTechnologies()
+        {
+            
+        }
      
         public void TokenCallback(ParadoxParser parser, string token)
         {
             switch (token)
             {
                 case "military_tech":
-                    Military = parser.Parse(new CountryTechnology());
+                    Country.Technologies.Add(parser.Parse(new CountryTechnology(TechnologyType.Military, Country)));
                     break;
                 case "civic_tech":
-                    Civic = parser.Parse(new CountryTechnology());
+                    Country.Technologies.Add(parser.Parse(new CountryTechnology(TechnologyType.Civic,Country)));
                     break;
                 case "oratory_tech":
-                    Oratory = parser.Parse(new CountryTechnology());
+                    Country.Technologies.Add(parser.Parse(new CountryTechnology(TechnologyType.Oratory,Country)));
                     break;
                 case "religious_tech":
-                    Religious = parser.Parse(new CountryTechnology());
+                    Country.Technologies.Add(parser.Parse(new CountryTechnology(TechnologyType.Religious,Country)));
                     break;
               
             }

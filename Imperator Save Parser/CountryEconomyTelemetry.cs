@@ -4,6 +4,10 @@ namespace ImperatorSaveParser
 {
     public class CountryEconomyTelemetry: IParadoxRead
     { 
+        public int SaveId { get; set; }
+        public int CountryId { get; set; }
+        public TelemetryType Type { get; set; }
+        public CountryEconomy CountryEconomy { get; set; }
         public double Manpower { get; set; }
         public double Gold { get; set; }
         public double Stability { get; set; }
@@ -12,6 +16,20 @@ namespace ImperatorSaveParser
         public double AggressiveExpansion { get; set; }
         public double PoliticalInfluence { get; set; }
         public double MilitaryExperience { get; set; }
+
+
+        public CountryEconomyTelemetry(TelemetryType type, CountryEconomy countryEconomy)
+        {
+            CountryEconomy = countryEconomy;
+            SaveId = countryEconomy.SaveId;
+            CountryId = countryEconomy.CountryId;
+            Type = type;
+        }
+
+        public CountryEconomyTelemetry()
+        {
+            
+        }
      
         public void TokenCallback(ParadoxParser parser, string token)
         {

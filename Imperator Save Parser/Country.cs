@@ -1,17 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
 using Pdoxcl2Sharp;
 
 namespace ImperatorSaveParser
 {
     public class Country : IParadoxRead
     {
-        public string Id { get; }
+        public Save Save { get; set; }
+        public int SaveId { get; set; }
+        public int CountryId { get; set; }
         public string Tag { get; set; }
         public string HistoricalTag { get; set; }
         public string FlagTag { get; set; }
         public CountryCurrencyData CurrencyData { get; set; }
         public CountryTechnologies Technology { get; set; }
         public CountryEconomy Economy { get; set; }
+        public ICollection<CountryTechnology> Technologies { get; set; } = new List<CountryTechnology>();
         public int StartingPopulation { get; set; }
         public double MonthlyManpower { get; set; }
         public double CurrentIncome { get; set; }
@@ -30,9 +34,16 @@ namespace ImperatorSaveParser
         public DateTime LastWar { get; set; }
         public DateTime LastBattleWon { get; set; }
 
-        public Country(string id)
+        public Country(Save save, int countryId)
         {
-            Id = id;
+            Save = save;
+            SaveId = save.SaveId;
+            CountryId = countryId;
+        }
+
+        public Country()
+        {
+            
         }
         public void TokenCallback(ParadoxParser parser, string token)
         {
@@ -87,7 +98,7 @@ namespace ImperatorSaveParser
                     parser.ReadString();
                     break;
                 case "currency_data":
-                    CurrencyData = parser.Parse(new CountryCurrencyData());
+                    CurrencyData = parser.Parse(new CountryCurrencyData(this));
                     break;
                 case "is_antagonist":
                     parser.ReadString();
@@ -150,7 +161,7 @@ namespace ImperatorSaveParser
                     parser.ReadInt32();
                     break;
                 case "technology":
-                    Technology = parser.Parse(new CountryTechnologies());
+                    Technology = parser.Parse(new CountryTechnologies(this));
                     break;
                 case "recovery_motivation":
                     parser.ReadString();
@@ -171,7 +182,7 @@ namespace ImperatorSaveParser
                     AveragedIncome = parser.ReadDouble();
                     break;
                 case "economy":
-                    Economy = parser.Parse(new CountryEconomy());
+                    Economy = parser.Parse(new CountryEconomy(this));
                     break;
                 case "religious_unity":
                     ReligiousUnity = parser.ReadDouble();

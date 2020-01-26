@@ -4,8 +4,11 @@ namespace ImperatorSaveParser
 {
     public class Family : IParadoxRead
     {
-        public string Id { get; }
+        public Save Save { get; set; }
+        public int SaveId { get; set; }
+        public int FamilyId { get; set; }
         public string Key { get; private set; }
+
         public void TokenCallback(ParadoxParser parser, string token)
         {
             switch (token)
@@ -17,9 +20,16 @@ namespace ImperatorSaveParser
            
         }
 
-        public Family(string id)
+        public Family(Save save, int familyId)
         {
-            Id = id;
+            Save = save;
+            SaveId = save.SaveId;
+            FamilyId = familyId;
+        }
+
+        public Family()
+        {
+            
         }
     }
 }

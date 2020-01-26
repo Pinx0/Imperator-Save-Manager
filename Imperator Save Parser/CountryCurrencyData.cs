@@ -4,6 +4,9 @@ namespace ImperatorSaveParser
 {
     public class CountryCurrencyData: IParadoxRead
     { 
+        public int SaveId { get; set; }
+        public int CountryId { get; set; }
+        public Country Country { get; set; }
         public double Manpower { get; set; }
         public double Gold { get; set; }
         public double Stability { get; set; }
@@ -12,6 +15,19 @@ namespace ImperatorSaveParser
         public double AggressiveExpansion { get; set; }
         public double PoliticalInfluence { get; set; }
         public double MilitaryExperience { get; set; }
+      
+
+        public CountryCurrencyData(Country country)
+        {
+            Country = country;
+            CountryId = country.CountryId;
+            SaveId = country.SaveId;
+        }
+
+        public CountryCurrencyData()
+        {
+            
+        }
         public void TokenCallback(ParadoxParser parser, string token)
         {
             switch (token)
