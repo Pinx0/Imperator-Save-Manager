@@ -1,5 +1,6 @@
 ﻿using Pdoxcl2Sharp;
 using System;
+using System.Collections.Generic;
 
 namespace ImperatorSaveParser
 {
@@ -7,8 +8,8 @@ namespace ImperatorSaveParser
     {
         public int SaveId { get; set; }
         public string SaveKey { get; set; }
-        public FamilyManager FamilyManager { get; private set; }
-        public CountryManager CountryManager { get; private set; }
+        public ICollection<Family> Families { get; private set; } = new List<Family>();
+        public ICollection<Country> Countries { get; private set; } = new List<Country>();
         public DateTime Date { get; private set; }
 
         public void TokenCallback(ParadoxParser parser, string token)
@@ -56,7 +57,7 @@ namespace ImperatorSaveParser
                     parser.Parse(new IgnoredEntity());
                     break;
                 case "family":
-                    FamilyManager = parser.Parse(new FamilyManager(this));
+                    parser.Parse(new FamilyManager(this));
                     break;
                 case "character":
                     parser.Parse(new IgnoredEntity());
@@ -71,7 +72,7 @@ namespace ImperatorSaveParser
                     parser.Parse(new IgnoredEntity());
                     break;
                 case "country":
-                    CountryManager = parser.Parse(new CountryManager(this));
+                    parser.Parse(new CountryManager(this));
                     break;
                 case "state":
                     parser.Parse(new IgnoredEntity());

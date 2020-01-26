@@ -21,6 +21,8 @@ namespace ImperatorStats.Models
             modelBuilder.Ignore<CountryTechnologies>();
             modelBuilder.Entity<Save>().HasKey(c => c.SaveId).HasAnnotation("DatabaseGenerated",DatabaseGeneratedOption.Identity);
             modelBuilder.Entity<Save>().Property(c => c.SaveId).HasMaxLength(50);
+            modelBuilder.Entity<Save>().HasMany(c => c.Families).WithOne(x => x.Save).HasForeignKey(x => x.SaveId);
+            modelBuilder.Entity<Save>().HasMany(c => c.Countries).WithOne(x => x.Save).HasForeignKey(x => x.SaveId);
             modelBuilder.Entity<Country>().HasOne(c => c.Save);
             modelBuilder.Entity<Country>().HasOne(c => c.CurrencyData).WithOne(x => x.Country).HasForeignKey<CountryCurrencyData>(x => new {x.SaveId, x.CountryId});
             modelBuilder.Entity<Country>().HasMany(c => c.Technologies).WithOne(x => x.Country).HasForeignKey(x => new {x.SaveId, x.CountryId});

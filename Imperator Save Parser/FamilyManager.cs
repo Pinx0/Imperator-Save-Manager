@@ -1,5 +1,6 @@
 ﻿using Pdoxcl2Sharp;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ImperatorSaveParser
 {
@@ -31,6 +32,10 @@ namespace ImperatorSaveParser
                 x.ReadString();
                 return null;
             });
+            foreach (var f in Families.Values.Where(f => f != null))
+            {
+                Save.Families.Add(f);
+            }
 
         }
 

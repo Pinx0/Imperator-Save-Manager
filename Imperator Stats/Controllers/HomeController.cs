@@ -24,10 +24,6 @@ namespace ImperatorStats.Controllers
         {
             return View();
         }
-        public IActionResult Stats()
-        {
-            return View(new StatsViewModel(null));
-        }
         public IActionResult SaveList()
         {
             return View(new SavesListViewModel(_db.Saves.Take(20).ToList()));
@@ -53,19 +49,21 @@ namespace ImperatorStats.Controllers
                         {
                             save = ParadoxParser.Parse(stream, new Save());
                             _db.Saves.Add(save);
-                            _db.Countries.AddRange(save.CountryManager.Countries.Values.Where(x => x != null));
-                            _db.Families.AddRange(save.FamilyManager.Families.Values.Where(x => x != null));
                             await _db.SaveChangesAsync();
                         }
                     }
                 }
             }
- 
-            // process uploaded files
-            // Don't rely on or trust the FileName property without validation.
-            return View(new StatsViewModel(save));
+            
+            return View("SaveList");
         }
 
+        [HttpGet("/Home/Save/{id:int}")]
+        public IActionResult Save(int id)
+        {
+            var save =_db.Saves.Find(id);
+            return View(new SaveViewModel(save));
+        }
        
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -13,19 +13,25 @@
             <th>
                 @Html.DisplayNameFor(model => model.Saves[0].SaveKey)
             </th>
+            <th>
+               Ver
+            </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model.Saves)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SaveId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SaveKey)
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SaveId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SaveKey)
+            </td>
+            <td>
+                <a asp-controller="Home" asp-action="Save" asp-route-id="@item.SaveId">Ver</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
