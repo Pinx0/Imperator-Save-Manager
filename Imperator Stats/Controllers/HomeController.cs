@@ -7,6 +7,7 @@ using ImperatorSaveParser;
 using Microsoft.AspNetCore.Mvc;
 using ImperatorStats.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Pdoxcl2Sharp;
 
 namespace ImperatorStats.Controllers
@@ -26,13 +27,13 @@ namespace ImperatorStats.Controllers
         }
         public IActionResult SaveList()
         {
-            return View(new SavesListViewModel(_db.Saves.Take(20).ToList()));
+            return View(new SavesListViewModel(_db.Saves.ToList()));
         }
         [HttpPost]
         [RequestSizeLimit(200000000)]
-        public async Task<IActionResult> Stats(List<IFormFile> files)
+        public async Task<IActionResult> UploadSave(List<IFormFile> files)
         {
-            Save save = null;
+            string response = "The file you uploaded isn't a decompressed Imperator save.";
             foreach (var formFile in files)
             {
                 if (formFile.Length > 0)
@@ -47,15 +48,23 @@ namespace ImperatorStats.Controllers
                         }
                         await using (var stream = new FileStream(filePath, FileMode.Open))
                         {
-                            save = ParadoxParser.Parse(stream, new Save());
-                            _db.Saves.Add(save);
+                            var save = ParadoxParser.Parse(stream, new Save());
+                            if (_db.Saves.Any(s => s.SaveKey == save.SaveKey))
+                            {
+                                response = "The save you uploaded already exists in the database.";
+                            }
+                            else
+                            {
+                                _db.Saves.Add(save);
+                                response = "Save added correctly.";
+                            }
                             await _db.SaveChangesAsync();
                         }
                     }
                 }
             }
             
-            return View("SaveList");
+            return View("SaveList", new SavesListViewModel(_db.Saves.Take(20).ToList(), response));
         }
 
         [HttpGet("/Home/Save/{id:int}")]
@@ -63,6 +72,14 @@ namespace ImperatorStats.Controllers
         {
             var save =_db.Saves.Find(id);
             return View(new SaveViewModel(save));
+        }
+        [HttpGet("/Home/Economy/{id:int}")]
+        public IActionResult Economy(int id)
+        {
+            var countries =_db.Countries.Where(x => x.SaveId == id)
+                .Include(x => x.CurrencyData)
+                .OrderBy(x => x.Tag).ToList();
+            return View(new EconomyViewModel(countries));
         }
        
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

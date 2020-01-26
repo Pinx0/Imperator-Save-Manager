@@ -4,3 +4,5 @@
 }
 <h1>@ViewData["Title"]</h1>
 <h2>@Html.ViewData.Model.Save.SaveId</h2>
+<p>Save date: @Html.ViewData.Model.Save.Date.ToShortDateString()</p>
+<a asp-action="Economy" asp-route-id="@Html.ViewData.Model.Save.SaveId">Economy</a>
