@@ -340,3 +340,4 @@ ASALocalRun/
 healthchecksdb
 /Imperator Stats/appsettings.json
 /Imperator Stats/appsettings.Development.json
+/Imperator Stats/web2.config
