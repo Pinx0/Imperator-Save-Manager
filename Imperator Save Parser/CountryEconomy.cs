@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Pdoxcl2Sharp;
 
 namespace ImperatorSaveParser
@@ -10,6 +11,14 @@ namespace ImperatorSaveParser
         public Country Country { get; set; }
         public double LastMonthIncome { get; set; }
         public ICollection<CountryEconomyTelemetry> Telemetries { get; set; } = new List<CountryEconomyTelemetry>();
+        public CountryEconomyTelemetry Accumulated
+        {
+            get { return Telemetries.FirstOrDefault(x => x.Type == TelemetryType.Accumulated); }
+        }
+        public CountryEconomyTelemetry Spent
+        {
+            get { return Telemetries.FirstOrDefault(x => x.Type == TelemetryType.Spent); }
+        }
 
         public CountryEconomy(Country country)
         {

@@ -79,9 +79,35 @@ namespace ImperatorStats.Controllers
             var countries =_db.Countries.Where(x => x.SaveId == id)
                 .Include(x => x.CurrencyData)
                 .Include(x => x.Players)
+                .Include(x => x.Economy)
+                .ThenInclude(x => x.Telemetries)
+                .Where(x => x.Players.Count > 0)
+                .OrderByDescending(x => x.AveragedIncome).ToList();
+            return View(new CountriesViewModel(countries));
+        }
+        [HttpGet("/Home/Demography/{id:int}")]
+        public IActionResult Demography(int id)
+        {
+            var countries =_db.Countries.Where(x => x.SaveId == id)
+                .Include(x => x.CurrencyData)
+                .Include(x => x.Players)
+                .Include(x => x.Economy)
+                .ThenInclude(x => x.Telemetries)
                 .Where(x => x.Players.Count > 0)
                 .OrderByDescending(x => x.TotalPopulation).ToList();
-            return View(new EconomyViewModel(countries));
+            return View(new CountriesViewModel(countries));
+        }
+        [HttpGet("/Home/Military/{id:int}")]
+        public IActionResult Military(int id)
+        {
+            var countries =_db.Countries.Where(x => x.SaveId == id)
+                .Include(x => x.CurrencyData)
+                .Include(x => x.Players)
+                .Include(x => x.Economy)
+                .ThenInclude(x => x.Telemetries)
+                .Where(x => x.Players.Count > 0)
+                .OrderByDescending(x => x.TotalCohorts).ToList();
+            return View(new CountriesViewModel(countries));
         }
        
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -1,6 +1,6 @@
 ﻿@model CountriesViewModel
 @{
-    ViewData["Title"] = "Economy Info";
+    ViewData["Title"] = "Military Info";
 }
 <h1>@ViewData["Title"]</h1>
 <table id="myTable" class="table">
@@ -13,19 +13,19 @@
                 Played By
             </th>
             <th>
-                Average Income
+                Total Cohorts
             </th>
             <th>
-                Gold
+                Monthly Manpower
             </th>
             <th>
-                Last Month Income
+                Max Manpower
             </th>
             <th>
-                Accumulated Gold
+                Last battle won
             </th>
             <th>
-                Spent Gold
+                Last war
             </th>
         </tr>
     </thead>
@@ -40,19 +40,19 @@
                 @Html.DisplayFor(modelItem => item.PlayedBy)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AveragedIncome)
+                @Html.DisplayFor(modelItem => item.TotalCohorts)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CurrencyData.Gold)
+                @Html.DisplayFor(modelItem => item.MonthlyManpower)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Economy.LastMonthIncome)
+                @Html.DisplayFor(modelItem => item.MaxManpower)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Economy.Accumulated.Gold)
+                @Html.DisplayFor(modelItem => item.LastBattleWon)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Economy.Spent.Gold)
+                @Html.DisplayFor(modelItem => item.LastWar)
             </td>
         </tr>
     }

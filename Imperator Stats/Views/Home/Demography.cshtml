@@ -1,6 +1,6 @@
 ﻿@model CountriesViewModel
 @{
-    ViewData["Title"] = "Economy Info";
+    ViewData["Title"] = "Demography Info";
 }
 <h1>@ViewData["Title"]</h1>
 <table id="myTable" class="table">
@@ -13,19 +13,16 @@
                 Played By
             </th>
             <th>
-                Average Income
+                Total Pops
             </th>
             <th>
-                Gold
+                Religious Unity
             </th>
             <th>
-                Last Month Income
+                Disloyal Pops
             </th>
             <th>
-                Accumulated Gold
-            </th>
-            <th>
-                Spent Gold
+                Disloyal Pops (%)
             </th>
         </tr>
     </thead>
@@ -40,19 +37,16 @@
                 @Html.DisplayFor(modelItem => item.PlayedBy)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AveragedIncome)
+                @Html.DisplayFor(modelItem => item.TotalPopulation)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CurrencyData.Gold)
+                @Html.DisplayFor(modelItem => item.ReligiousUnity)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Economy.LastMonthIncome)
+                @Html.DisplayFor(modelItem => item.DisloyalPops)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Economy.Accumulated.Gold)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Economy.Spent.Gold)
+                @Html.DisplayFor(modelItem => item.DisloyaltyPercentage)
             </td>
         </tr>
     }

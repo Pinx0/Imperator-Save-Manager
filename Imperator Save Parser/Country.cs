@@ -16,6 +16,7 @@ namespace ImperatorSaveParser
         public CountryCurrencyData CurrencyData { get; set; }
         public CountryTechnologies Technology { get; set; }
         public CountryEconomy Economy { get; set; }
+        
         public ICollection<CountryTechnology> Technologies { get; set; } = new List<CountryTechnology>();
         public ICollection<CountryPlayer> Players { get; set; } = new List<CountryPlayer>();
         public int StartingPopulation { get; set; }
@@ -35,6 +36,8 @@ namespace ImperatorSaveParser
         public double Centralization { get; set; }
         public DateTime LastWar { get; set; }
         public DateTime LastBattleWon { get; set; }
+        public int DisloyalPops => TotalPopulation - LoyalPops;
+        public double DisloyaltyPercentage => DisloyalPops / (double)TotalPopulation;
 
         public string PlayedBy
         {
