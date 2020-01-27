@@ -85,6 +85,17 @@ namespace ImperatorStats.Controllers
                 .OrderByDescending(x => x.AveragedIncome).ToList();
             return View(new CountriesViewModel(countries));
         }
+        [HttpGet("/Home/Technology/{id:int}")]
+        public IActionResult Technology(int id)
+        {
+            var countries =_db.Countries.Where(x => x.SaveId == id)
+                .Include(x => x.CurrencyData)
+                .Include(x => x.Players)
+                .Include(x => x.Technologies)
+                .Where(x => x.Players.Count > 0)
+                .ToList().OrderByDescending(x => x.AverageTechLevel).ToList();
+            return View(new CountriesViewModel(countries));
+        }
         [HttpGet("/Home/Demography/{id:int}")]
         public IActionResult Demography(int id)
         {

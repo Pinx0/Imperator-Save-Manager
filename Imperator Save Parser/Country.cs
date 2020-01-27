@@ -15,6 +15,10 @@ namespace ImperatorSaveParser
         public string FlagTag { get; set; }
         public CountryCurrencyData CurrencyData { get; set; }
         public CountryTechnologies Technology { get; set; }
+        public CountryTechnology MilitaryTechnology =>  Technologies.FirstOrDefault(x => x.Type == TechnologyType.Military);
+        public CountryTechnology CivicTechnology =>  Technologies.FirstOrDefault(x => x.Type == TechnologyType.Civic);
+        public CountryTechnology OratoryTechnology =>  Technologies.FirstOrDefault(x => x.Type == TechnologyType.Oratory);
+        public CountryTechnology ReligiousTechnology =>  Technologies.FirstOrDefault(x => x.Type == TechnologyType.Religious);
         public CountryEconomy Economy { get; set; }
         
         public ICollection<CountryTechnology> Technologies { get; set; } = new List<CountryTechnology>();
@@ -47,6 +51,11 @@ namespace ImperatorSaveParser
                 return string.Join(", ", Players.Select(p => p.PlayerName).ToArray());
             }
         }
+
+        public double AverageTechLevel => (MilitaryTechnology.Level + MilitaryTechnology.Progress / 100.0 +
+                                          CivicTechnology.Level + CivicTechnology.Progress / 100.0 +
+                                          OratoryTechnology.Level + OratoryTechnology.Progress / 100.0 +
+                                          ReligiousTechnology.Level + ReligiousTechnology.Progress / 100.0)/4.0;
 
         public Country(Save save, int countryId)
         {

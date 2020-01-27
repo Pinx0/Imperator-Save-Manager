@@ -1,0 +1,84 @@
+﻿@model CountriesViewModel
+@{
+    ViewData["Title"] = "Demography Info";
+}
+<h1>@ViewData["Title"]</h1>
+<table id="myTable" class="table">
+    <thead>
+        <tr>
+            <th>
+                Tag
+            </th>
+            <th>
+                Played By
+            </th>
+            <th>
+                Average Tech
+            </th>
+            <th>
+                Military Tech
+            </th>
+            <th>
+                Military Progress
+            </th>
+            <th>
+                Civic Tech
+            </th>
+            <th>
+                Civic Progress
+            </th>
+            <th>
+                Oratory Tech
+            </th>
+            <th>
+                Oratory Progress
+            </th>
+            <th>
+                Religious Tech
+            </th>
+            <th>
+                Religious Progress
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Countries)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tag)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlayedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AverageTechLevel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MilitaryTechnology.Level)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MilitaryTechnology.Progress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CivicTechnology.Level)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CivicTechnology.Progress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OratoryTechnology.Level)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OratoryTechnology.Progress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReligiousTechnology.Level)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReligiousTechnology.Progress)
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

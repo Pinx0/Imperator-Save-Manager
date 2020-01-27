@@ -29,6 +29,12 @@ namespace ImperatorStats.Models
             modelBuilder.Entity<Country>().HasOne(c => c.Economy).WithOne(x => x.Country).HasForeignKey<CountryEconomy>(x => new {x.SaveId, x.CountryId});
             modelBuilder.Entity<Country>().HasKey(c => new { c.SaveId, c.CountryId });
             modelBuilder.Entity<Country>().Ignore(c => c.PlayedBy);
+            modelBuilder.Entity<Country>().Ignore(c => c.DisloyalPops);
+            modelBuilder.Entity<Country>().Ignore(c => c.DisloyaltyPercentage);
+            modelBuilder.Entity<Country>().Ignore(c => c.MilitaryTechnology);
+            modelBuilder.Entity<Country>().Ignore(c => c.CivicTechnology);
+            modelBuilder.Entity<Country>().Ignore(c => c.OratoryTechnology);
+            modelBuilder.Entity<Country>().Ignore(c => c.ReligiousTechnology);
             modelBuilder.Entity<Family>().HasKey(c => new { c.SaveId, c.FamilyId });
             modelBuilder.Entity<CountryCurrencyData>().HasKey(c => new { c.SaveId, c.CountryId });
             modelBuilder.Entity<CountryCurrencyData>().HasOne(c => c.Country);
