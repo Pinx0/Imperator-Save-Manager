@@ -1,5 +1,3 @@
-using System;
-
 namespace ImperatorStats.Models
 {
     public class ErrorViewModel

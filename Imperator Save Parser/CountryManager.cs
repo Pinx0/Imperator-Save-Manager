@@ -34,7 +34,7 @@ namespace ImperatorSaveParser
             foreach (var c in Countries.Values.Where(x => x != null))
             {
                 Save.Countries.Add(c);
-            };
+            }
         }
     }
 }
