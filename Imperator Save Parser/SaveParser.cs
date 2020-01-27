@@ -1,17 +1,15 @@
 ﻿using Pdoxcl2Sharp;
-using System;
 using System.Collections.Generic;
+using System.Linq;
 
-namespace ImperatorSaveParser
+namespace Imperator.Save.Parser
 {
-    public class Save : IParadoxRead
+    public class SaveParser : Save, IParadoxRead
     {
-        public int SaveId { get; set; }
-        public string SaveKey { get; set; }
-        public ICollection<Family> Families { get; set; } = new List<Family>();
-        public ICollection<Country> Countries { get; set; } = new List<Country>();
-        public DateTime Date { get; private set; }
-
+        public IDictionary<int,FamilyParser> FamiliesDictionary { get; set; } = new Dictionary<int, FamilyParser>();
+        public IDictionary<int,CountryParser> CountriesDictionary { get; set; } = new Dictionary<int, CountryParser>();
+        public IDictionary<int,PopulationParser> PopsDictionary { get; set; } = new Dictionary<int, PopulationParser>();
+        public IDictionary<int,ProvinceParser> ProvincesDictionary { get; set; } = new Dictionary<int, ProvinceParser>();
         public void TokenCallback(ParadoxParser parser, string token)
         {
             if (token.StartsWith("SAV") && SaveKey == null)
@@ -84,10 +82,15 @@ namespace ImperatorSaveParser
                     parser.Parse(new IgnoredEntity());
                     break;
                 case "population":
-                    parser.Parse(new IgnoredEntity());
+                    parser.Parse(new PopulationManager(this));
                     break;
                 case "provinces":
-                    parser.Parse(new IgnoredEntity());
+                    var pManager = parser.Parse(new ProvinceManager(this));
+                    ProvincesDictionary = pManager.Provinces;
+                    foreach (var c in ProvincesDictionary.Values.Where(x => x != null))
+                    {
+                        Provinces.Add(c);
+                    }
                     break;
                 case "road_network":
                     parser.Parse(new IgnoredEntity());
@@ -150,7 +153,7 @@ namespace ImperatorSaveParser
                     parser.Parse(new IgnoredEntity());
                     break;
                 case "played_country":
-                    parser.Parse(new CountryPlayer(this));
+                    parser.Parse(new CountryPlayerParser(this));
                     break;
             }
         }

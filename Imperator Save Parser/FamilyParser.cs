@@ -1,14 +1,9 @@
 ﻿using Pdoxcl2Sharp;
 
-namespace ImperatorSaveParser
+namespace Imperator.Save.Parser
 {
-    public class Family : IParadoxRead
+    public class FamilyParser : Family, IParadoxRead
     {
-        public Save Save { get; set; }
-        public int SaveId { get; set; }
-        public int FamilyId { get; set; }
-        public string Key { get; private set; }
-
         public void TokenCallback(ParadoxParser parser, string token)
         {
             switch (token)
@@ -20,16 +15,11 @@ namespace ImperatorSaveParser
            
         }
 
-        public Family(Save save, int familyId)
+        public FamilyParser(SaveParser save, int familyId)
         {
             Save = save;
             SaveId = save.SaveId;
             FamilyId = familyId;
-        }
-
-        public Family()
-        {
-            
         }
     }
 }

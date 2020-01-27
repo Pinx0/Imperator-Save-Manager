@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using ImperatorSaveParser;
+using Imperator.Save;
 
 namespace ImperatorStats.Models
 {

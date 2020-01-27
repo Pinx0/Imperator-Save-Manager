@@ -1,4 +1,4 @@
-using ImperatorSaveParser;
+using Imperator.Save;
 
 namespace ImperatorStats.Models
 {

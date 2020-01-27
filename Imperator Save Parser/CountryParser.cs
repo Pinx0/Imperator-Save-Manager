@@ -1,73 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Pdoxcl2Sharp;
+﻿using Pdoxcl2Sharp;
 
-namespace ImperatorSaveParser
+namespace Imperator.Save.Parser
 {
-    public class Country : IParadoxRead
+    public class CountryParser : Country, IParadoxRead
     {
-        public Save Save { get; set; }
-        public int SaveId { get; set; }
-        public int CountryId { get; set; }
-        public string Tag { get; set; }
-        public string HistoricalTag { get; set; }
-        public string FlagTag { get; set; }
-        public CountryCurrencyData CurrencyData { get; set; }
-        public CountryTechnologies Technology { get; set; }
-        public CountryTechnology MilitaryTechnology =>  Technologies.FirstOrDefault(x => x.Type == TechnologyType.Military);
-        public CountryTechnology CivicTechnology =>  Technologies.FirstOrDefault(x => x.Type == TechnologyType.Civic);
-        public CountryTechnology OratoryTechnology =>  Technologies.FirstOrDefault(x => x.Type == TechnologyType.Oratory);
-        public CountryTechnology ReligiousTechnology =>  Technologies.FirstOrDefault(x => x.Type == TechnologyType.Religious);
-        public CountryEconomy Economy { get; set; }
-        
-        public ICollection<CountryTechnology> Technologies { get; set; } = new List<CountryTechnology>();
-        public ICollection<CountryPlayer> Players { get; set; } = new List<CountryPlayer>();
-        public int StartingPopulation { get; set; }
-        public double MonthlyManpower { get; set; }
-        public double CurrentIncome { get; set; }
-        public double EstimatedMonthlyIncome { get; set; }
-        public double AveragedIncome { get; set; }
-        public double ReligiousUnity { get; set; }
-        public double MaxManpower { get; set; }
-        public int ForeignReligionPops { get; set; }
-        public int TotalPopulation { get; set; }
-        public int TotalCohorts { get; set; }
-        public int LoyalPops { get; set; }
-        public int LoyalCohorts { get; set; }
-        public double TotalPowerBase { get; set; }
-        public double Legitimacy { get; set; }
-        public double Centralization { get; set; }
-        public DateTime LastWar { get; set; }
-        public DateTime LastBattleWon { get; set; }
-        public int DisloyalPops => TotalPopulation - LoyalPops;
-        public double DisloyaltyPercentage => DisloyalPops / (double)TotalPopulation;
+        public CountryCurrencyDataParser CurrencyData { get; set; }
+        public CountryTechnologiesParser Technology { get; set; }
 
-        public string PlayedBy
-        {
-            get
-            {
-                if (Players.Count == 0) return "";
-                return string.Join(", ", Players.Select(p => p.PlayerName).ToArray());
-            }
-        }
-
-        public double AverageTechLevel => (MilitaryTechnology.Level + MilitaryTechnology.Progress / 100.0 +
-                                          CivicTechnology.Level + CivicTechnology.Progress / 100.0 +
-                                          OratoryTechnology.Level + OratoryTechnology.Progress / 100.0 +
-                                          ReligiousTechnology.Level + ReligiousTechnology.Progress / 100.0)/4.0;
-
-        public Country(Save save, int countryId)
+        public CountryParser(SaveParser save, int countryId)
         {
             Save = save;
             SaveId = save.SaveId;
             CountryId = countryId;
         }
 
-        public Country()
-        {
-            
-        }
         public void TokenCallback(ParadoxParser parser, string token)
         {
             switch (token)
@@ -121,7 +67,7 @@ namespace ImperatorSaveParser
                     parser.ReadString();
                     break;
                 case "currency_data":
-                    CurrencyData = parser.Parse(new CountryCurrencyData(this));
+                    CurrencyData = parser.Parse(new CountryCurrencyDataParser(this));
                     break;
                 case "is_antagonist":
                     parser.ReadString();
@@ -184,7 +130,7 @@ namespace ImperatorSaveParser
                     parser.ReadInt32();
                     break;
                 case "technology":
-                    Technology = parser.Parse(new CountryTechnologies(this));
+                    Technology = parser.Parse(new CountryTechnologiesParser(this));
                     break;
                 case "recovery_motivation":
                     parser.ReadString();
@@ -205,7 +151,7 @@ namespace ImperatorSaveParser
                     AveragedIncome = parser.ReadDouble();
                     break;
                 case "economy":
-                    Economy = parser.Parse(new CountryEconomy(this));
+                    parser.Parse(new CountryEconomyParser(this));
                     break;
                 case "religious_unity":
                     ReligiousUnity = parser.ReadDouble();

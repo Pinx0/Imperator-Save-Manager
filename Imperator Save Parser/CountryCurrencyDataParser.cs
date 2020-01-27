@@ -1,13 +1,12 @@
 ﻿using Pdoxcl2Sharp;
 
-namespace ImperatorSaveParser
+namespace Imperator.Save.Parser
 {
-    public class CountryEconomyTelemetry: IParadoxRead
+    public class CountryCurrencyDataParser: IParadoxRead
     { 
         public int SaveId { get; set; }
         public int CountryId { get; set; }
-        public TelemetryType Type { get; set; }
-        public CountryEconomy CountryEconomy { get; set; }
+        public Country Country { get; set; }
         public double Manpower { get; set; }
         public double Gold { get; set; }
         public double Stability { get; set; }
@@ -16,21 +15,19 @@ namespace ImperatorSaveParser
         public double AggressiveExpansion { get; set; }
         public double PoliticalInfluence { get; set; }
         public double MilitaryExperience { get; set; }
+      
 
-
-        public CountryEconomyTelemetry(TelemetryType type, CountryEconomy countryEconomy)
+        public CountryCurrencyDataParser(Country country)
         {
-            CountryEconomy = countryEconomy;
-            SaveId = countryEconomy.SaveId;
-            CountryId = countryEconomy.CountryId;
-            Type = type;
+            Country = country;
+            CountryId = country.CountryId;
+            SaveId = country.SaveId;
         }
 
-        public CountryEconomyTelemetry()
+        public CountryCurrencyDataParser()
         {
             
         }
-     
         public void TokenCallback(ParadoxParser parser, string token)
         {
             switch (token)
@@ -59,8 +56,6 @@ namespace ImperatorSaveParser
                 case "military_experience":
                     MilitaryExperience = parser.ReadDouble();
                     break;
-
-              
             }
            
         }

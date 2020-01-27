@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Imperator Save Parser", "Imperator Save Parser\Imperator Save Parser.csproj", "{FBC210CE-B2E2-458F-998D-48A5BD26E04E}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Imperator Stats", "Imperator Stats\Imperator Stats.csproj", "{1138D596-1C99-4390-91A3-642F86099EE5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Imperator Save", "Imperator Save\Imperator Save.csproj", "{9C182221-B662-4FFB-850A-693EBE23AC56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Imperator Save Parser", "Imperator Save Parser\Imperator Save Parser.csproj", "{2FBBE1F4-3E5A-4940-B276-31F584A84230}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +15,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FBC210CE-B2E2-458F-998D-48A5BD26E04E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FBC210CE-B2E2-458F-998D-48A5BD26E04E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FBC210CE-B2E2-458F-998D-48A5BD26E04E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FBC210CE-B2E2-458F-998D-48A5BD26E04E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1138D596-1C99-4390-91A3-642F86099EE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1138D596-1C99-4390-91A3-642F86099EE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1138D596-1C99-4390-91A3-642F86099EE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1138D596-1C99-4390-91A3-642F86099EE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C182221-B662-4FFB-850A-693EBE23AC56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C182221-B662-4FFB-850A-693EBE23AC56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C182221-B662-4FFB-850A-693EBE23AC56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C182221-B662-4FFB-850A-693EBE23AC56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FBBE1F4-3E5A-4940-B276-31F584A84230}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FBBE1F4-3E5A-4940-B276-31F584A84230}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FBBE1F4-3E5A-4940-B276-31F584A84230}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FBBE1F4-3E5A-4940-B276-31F584A84230}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -13,14 +13,34 @@
     <Compile Remove="Migrations\20200126014448_Initial.Designer.cs" />
     <Compile Remove="Migrations\20200126022400_Initial.cs" />
     <Compile Remove="Migrations\20200126022400_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200126022522_Initial.cs" />
+    <Compile Remove="Migrations\20200126022522_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200126030342_Second.cs" />
+    <Compile Remove="Migrations\20200126030342_Second.Designer.cs" />
+    <Compile Remove="Migrations\20200126030655_Third.cs" />
+    <Compile Remove="Migrations\20200126030655_Third.Designer.cs" />
+    <Compile Remove="Migrations\20200126031641_Forth.cs" />
+    <Compile Remove="Migrations\20200126031641_Forth.Designer.cs" />
+    <Compile Remove="Migrations\20200126032625_Fifth.cs" />
+    <Compile Remove="Migrations\20200126032625_Fifth.Designer.cs" />
     <Compile Remove="Migrations\20200126182137_6.cs" />
     <Compile Remove="Migrations\20200126182137_6.Designer.cs" />
+    <Compile Remove="Migrations\20200126182220_Sixth.cs" />
+    <Compile Remove="Migrations\20200126182220_Sixth.Designer.cs" />
     <Compile Remove="Migrations\20200126190946_CountyPlayer.cs" />
     <Compile Remove="Migrations\20200126190946_CountyPlayer.Designer.cs" />
     <Compile Remove="Migrations\20200126191045_CountryPlayer.cs" />
     <Compile Remove="Migrations\20200126191045_CountryPlayer.Designer.cs" />
     <Compile Remove="Migrations\20200126191139_CountryPlayer.cs" />
     <Compile Remove="Migrations\20200126191139_CountryPlayer.Designer.cs" />
+    <Compile Remove="Migrations\20200126191412_CountryPlayer.cs" />
+    <Compile Remove="Migrations\20200126191412_CountryPlayer.Designer.cs" />
+    <Compile Remove="Migrations\20200127210616_Full-Review.cs" />
+    <Compile Remove="Migrations\20200127210616_Full-Review.Designer.cs" />
+    <Compile Remove="Migrations\20200127211249_Full-Review.cs" />
+    <Compile Remove="Migrations\20200127211249_Full-Review.Designer.cs" />
+    <Compile Remove="Migrations\20200127212416_Initial.cs" />
+    <Compile Remove="Migrations\20200127212416_Initial.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,8 +50,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -44,6 +64,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Imperator Save Parser\Imperator Save Parser.csproj" />
+    <ProjectReference Include="..\Imperator Save\Imperator Save.csproj" />
   </ItemGroup>
 
   <ItemGroup>

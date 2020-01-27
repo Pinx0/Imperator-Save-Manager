@@ -1,25 +1,15 @@
-﻿using System.Linq;
-using Pdoxcl2Sharp;
+﻿using Pdoxcl2Sharp;
 
-namespace ImperatorSaveParser
+namespace Imperator.Save.Parser
 {
-    public class CountryPlayer: IParadoxRead
+    public class CountryPlayerParser: CountryPlayer, IParadoxRead
     { 
-        public int SaveId { get; set; }
-        public int CountryId { get; set; }
-        public string PlayerName { get; set; }
-        public Country Country { get; set; }
-        private readonly Save _save;
+        private readonly SaveParser _save;
 
-        public CountryPlayer(Save save)
+        public CountryPlayerParser(SaveParser save)
         {
             SaveId = save.SaveId;
             _save = save;
-        }
-
-        public CountryPlayer()
-        {
-            
         }
         public void TokenCallback(ParadoxParser parser, string token)
         {
@@ -30,7 +20,7 @@ namespace ImperatorSaveParser
                     break;
                 case "country":
                     CountryId = parser.ReadInt32();
-                    Country = _save.Countries.FirstOrDefault(x => x.CountryId == CountryId);
+                    Country = _save.CountriesDictionary[CountryId];
                     Country?.Players.Add(this);
                     break;
               

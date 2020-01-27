@@ -1,6 +1,6 @@
 ﻿using Pdoxcl2Sharp;
 
-namespace ImperatorSaveParser
+namespace Imperator.Save.Parser
 {
     public class IgnoredEntity : IParadoxRead
     {

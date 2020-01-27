@@ -3,20 +3,21 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using ImperatorSaveParser;
+using Imperator.Save;
 using Microsoft.AspNetCore.Mvc;
 using ImperatorStats.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Pdoxcl2Sharp;
+using Imperator.Save.Parser;
 
 namespace ImperatorStats.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly MySqlContext _db;
+        private readonly ImperatorContext _db;
 
-        public HomeController(MySqlContext db)
+        public HomeController(ImperatorContext db)
         {
             _db = db;
         }
@@ -48,17 +49,17 @@ namespace ImperatorStats.Controllers
                         }
                         await using (var stream = new FileStream(filePath, FileMode.Open))
                         {
-                            var save = ParadoxParser.Parse(stream, new Save());
+                            var save = ParadoxParser.Parse(stream, new SaveParser());
                             if (_db.Saves.Any(s => s.SaveKey == save.SaveKey))
                             {
                                 response = "The save you uploaded already exists in the database.";
                             }
                             else
                             {
-                                _db.Saves.Add(save);
+                                _db.Saves.Add((Save)save);
                                 response = "Save added correctly.";
                             }
-                            await _db.SaveChangesAsync();
+                            _db.SaveChanges();
                         }
                     }
                 }
@@ -77,10 +78,7 @@ namespace ImperatorStats.Controllers
         public IActionResult Economy(int id)
         {
             var countries =_db.Countries.Where(x => x.SaveId == id)
-                .Include(x => x.CurrencyData)
                 .Include(x => x.Players)
-                .Include(x => x.Economy)
-                .ThenInclude(x => x.Telemetries)
                 .Where(x => x.Players.Count > 0)
                 .OrderByDescending(x => x.AveragedIncome).ToList();
             return View(new CountriesViewModel(countries));
@@ -89,7 +87,6 @@ namespace ImperatorStats.Controllers
         public IActionResult Technology(int id)
         {
             var countries =_db.Countries.Where(x => x.SaveId == id)
-                .Include(x => x.CurrencyData)
                 .Include(x => x.Players)
                 .Include(x => x.Technologies)
                 .Where(x => x.Players.Count > 0)
@@ -100,10 +97,7 @@ namespace ImperatorStats.Controllers
         public IActionResult Demography(int id)
         {
             var countries =_db.Countries.Where(x => x.SaveId == id)
-                .Include(x => x.CurrencyData)
                 .Include(x => x.Players)
-                .Include(x => x.Economy)
-                .ThenInclude(x => x.Telemetries)
                 .Where(x => x.Players.Count > 0)
                 .OrderByDescending(x => x.TotalPopulation).ToList();
             return View(new CountriesViewModel(countries));
@@ -112,10 +106,7 @@ namespace ImperatorStats.Controllers
         public IActionResult Military(int id)
         {
             var countries =_db.Countries.Where(x => x.SaveId == id)
-                .Include(x => x.CurrencyData)
                 .Include(x => x.Players)
-                .Include(x => x.Economy)
-                .ThenInclude(x => x.Telemetries)
                 .Where(x => x.Players.Count > 0)
                 .OrderByDescending(x => x.TotalCohorts).ToList();
             return View(new CountriesViewModel(countries));

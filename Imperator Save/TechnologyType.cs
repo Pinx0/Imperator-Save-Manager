@@ -1,4 +1,4 @@
-﻿namespace ImperatorSaveParser
+﻿namespace Imperator.Save
 {
     public enum TechnologyType
     {

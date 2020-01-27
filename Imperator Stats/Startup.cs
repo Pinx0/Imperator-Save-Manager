@@ -21,7 +21,7 @@ namespace ImperatorStats
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<MySqlContext>(options =>
+            services.AddDbContext<ImperatorContext>(options =>
                options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddRazorPages().AddRazorRuntimeCompilation();
 

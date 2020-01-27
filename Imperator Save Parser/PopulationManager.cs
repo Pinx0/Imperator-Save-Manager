@@ -4,17 +4,17 @@ using System.Linq;
 
 namespace Imperator.Save.Parser
 {
-    public class CountryManager : IParadoxRead
+    public class PopulationManager : IParadoxRead
     {
         public SaveParser Save { get; set; }
-        public IDictionary<int, CountryParser> Countries { get; private set; } = new Dictionary<int, CountryParser>();
-        public CountryManager(SaveParser save)
+        public IDictionary<int, PopulationParser> Pops { get; private set; } = new Dictionary<int, PopulationParser>();
+        public PopulationManager(SaveParser save)
         {
             Save = save;
         }
         public void TokenCallback(ParadoxParser parser, string token)
         {
-            Countries = parser.ReadDictionary( x =>
+            Pops = parser.ReadDictionary( x =>
             {
                 if (int.TryParse(x.ReadString(), out int id))
                     return id;
@@ -23,16 +23,18 @@ namespace Imperator.Save.Parser
             {
                 if (x.NextIsBracketed())
                 {
-                    if(int.TryParse(x.CurrentString, out int id))
-                        return x.Parse(new CountryParser(Save, id));
+                    if (int.TryParse(x.CurrentString, out int id))
+                    {
+                        return x.Parse(new PopulationParser(Save, id));
+                    }
                 }
                 x.ReadString();
                 return null;
             });
-            Save.CountriesDictionary = Countries;
-            foreach (var c in Countries.Values.Where(x => x != null))
+            Save.PopsDictionary = Pops;
+            foreach (var c in Pops.Values.Where(x => x != null))
             {
-                Save.Countries.Add(c);
+                Save.Pops.Add(c);
             }
         }
     }
