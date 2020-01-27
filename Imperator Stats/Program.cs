@@ -14,7 +14,6 @@ namespace ImperatorStats
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseSetting("https_port", "5002");
                     webBuilder.UseStartup<Startup>();
                     webBuilder.UseUrls("http://localhost:5002/");
                 });
