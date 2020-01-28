@@ -35,6 +35,7 @@ namespace ImperatorStats.Controllers
         public async Task<IActionResult> UploadSave(List<IFormFile> files)
         {
             string response = "The file you uploaded isn't a decompressed Imperator save.";
+            int saveId = 0;
             foreach (var formFile in files)
             {
                 if (formFile.Length > 0)
@@ -51,27 +52,29 @@ namespace ImperatorStats.Controllers
                             var save = ParadoxParser.Parse(stream, new SaveParser());
                             if (_db.Saves.Any(s => s.SaveKey == save.SaveKey))
                             {
-                                response = "The save you uploaded already exists in the database.";
+                                var oldSave =_db.Saves.FirstOrDefault(s => s.SaveKey == save.SaveKey);
+                                return View("Save",new SaveViewModel(oldSave));
                             }
-                            else
-                            {
-                                _db.Saves.Add(save);
-                                _db.SaveChanges();
-                                save.UpdateSaveId();
-                                _db.BulkInsert(save.FamiliesDictionary.Values.Where(f => f != null));
-                                _db.BulkInsert(save.PopsDictionary.Values.Where(f => f != null));
-                                _db.BulkInsert(save.CountriesDictionary.Values.Where(f => f != null));
-                                _db.BulkInsert(save.CountriesDictionary.Values.Where(f => f != null).SelectMany(c => c.Players));
-                                _db.BulkInsert(save.CountriesDictionary.Values.Where(f => f != null).SelectMany(c => c.Technologies));
-                                _db.BulkInsert(save.ProvincesDictionary.Values.Where(f => f != null));
-                               response = "Successfully uploaded.";
-                            }
-                            
+                            _db.Saves.Add(save);
+                            _db.SaveChanges();
+                            save.UpdateSaveId();
+                            saveId = save.SaveId;
+                            _db.BulkInsert(save.FamiliesDictionary.Values.Where(f => f != null));
+                            _db.BulkInsert(save.PopsDictionary.Values.Where(f => f != null));
+                            _db.BulkInsert(save.CountriesDictionary.Values.Where(f => f != null));
+                            _db.BulkInsert(save.CountriesDictionary.Values.Where(f => f != null).SelectMany(c => c.Players));
+                            _db.BulkInsert(save.CountriesDictionary.Values.Where(f => f != null).SelectMany(c => c.Technologies));
+                            _db.BulkInsert(save.ProvincesDictionary.Values.Where(f => f != null));
                         }
                     }
                 }
             }
-            return View("SaveList", new SavesListViewModel(_db.Saves.Take(20).ToList(), response));
+            if (saveId == 0)
+            {
+                return View("SaveList", new SavesListViewModel(_db.Saves.Take(20).ToList(), response));
+            }
+            var currentSave =_db.Saves.Find(saveId);
+            return View("Save",new SaveViewModel(currentSave));
         }
 
         [HttpGet("/{id:int}")]
