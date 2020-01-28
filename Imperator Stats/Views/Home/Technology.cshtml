@@ -46,37 +46,37 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Tag)
+                @item.Tag
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PlayedBy)
+                @item.PlayedBy
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AverageTechLevel)
+                @item.AverageTechLevel.ToString("N2")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MilitaryTechnology.Level)
+                @item.MilitaryTechnology.Level
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MilitaryTechnology.Progress)
+                @item.MilitaryTechnology.Progress.ToString("N1")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CivicTechnology.Level)
+                @item.CivicTechnology.Level
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CivicTechnology.Progress)
+                @item.CivicTechnology.Progress.ToString("N1")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.OratoryTechnology.Level)
+                @item.OratoryTechnology.Level
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.OratoryTechnology.Progress)
+                @item.OratoryTechnology.Progress.ToString("N1")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ReligiousTechnology.Level)
+                @item.ReligiousTechnology.Level
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ReligiousTechnology.Progress)
+                @item.ReligiousTechnology.Progress.ToString("N1")
             </td>
         </tr>
     }
