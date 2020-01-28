@@ -5,8 +5,7 @@ namespace Imperator.Save.Parser
 {
     public class ProvinceManager : IParadoxRead
     {
-        public SaveParser Save { get; set; }
-        public IDictionary<int, ProvinceParser> Provinces { get; private set; } = new Dictionary<int, ProvinceParser>();
+        private SaveParser Save { get; }
         public ProvinceManager(SaveParser save)
         {
             Save = save;
@@ -14,7 +13,7 @@ namespace Imperator.Save.Parser
         public void TokenCallback(ParadoxParser parser, string token)
         {
             int.TryParse(token, out int pId);
-            Provinces.Add(pId, parser.Parse(new ProvinceParser(Save, pId)));
+            Save.ProvincesDictionary.Add(pId, parser.Parse(new ProvinceParser(Save, pId)));
         }
     }
 }

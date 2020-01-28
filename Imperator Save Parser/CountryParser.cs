@@ -4,9 +4,6 @@ namespace Imperator.Save.Parser
 {
     public class CountryParser : Country, IParadoxRead
     {
-        public CountryCurrencyDataParser CurrencyData { get; set; }
-        public CountryTechnologiesParser Technology { get; set; }
-
         public CountryParser(SaveParser save, int countryId)
         {
             Save = save;
@@ -34,7 +31,7 @@ namespace Imperator.Save.Parser
                     parser.Parse(new IgnoredEntity());
                     break;
                 case "country_type":
-                    parser.ReadString();
+                    CountryType = parser.ReadString();
                     break;
                 case "family":
                     parser.ReadString();
@@ -67,7 +64,7 @@ namespace Imperator.Save.Parser
                     parser.ReadString();
                     break;
                 case "currency_data":
-                    CurrencyData = parser.Parse(new CountryCurrencyDataParser(this));
+                    parser.Parse(new CountryCurrencyDataParser(this));
                     break;
                 case "is_antagonist":
                     parser.ReadString();
@@ -88,10 +85,10 @@ namespace Imperator.Save.Parser
                     parser.ReadString();
                     break;
                 case "primary_culture":
-                    parser.ReadString();
+                    PrimaryCulture = parser.ReadString();
                     break;
                 case "religion":
-                    parser.ReadString();
+                    MainReligion = parser.ReadString();
                     break;
                 case "military_tradition":
                     parser.ReadString();
@@ -130,7 +127,7 @@ namespace Imperator.Save.Parser
                     parser.ReadInt32();
                     break;
                 case "technology":
-                    Technology = parser.Parse(new CountryTechnologiesParser(this));
+                    parser.Parse(new CountryTechnologiesParser(this));
                     break;
                 case "recovery_motivation":
                     parser.ReadString();

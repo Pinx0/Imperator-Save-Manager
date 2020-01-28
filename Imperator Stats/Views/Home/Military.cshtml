@@ -19,7 +19,13 @@
                 Monthly Manpower
             </th>
             <th>
+                Manpower
+            </th>
+            <th>
                 Max Manpower
+            </th>
+            <th>
+                Total Mil Exp
             </th>
             <th>
                 Last battle won
@@ -34,25 +40,31 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Tag)
+                @item.Tag
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PlayedBy)
+                @item.PlayedBy
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TotalCohorts)
+                @item.TotalCohorts.ToString("N0")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MonthlyManpower)
+                @item.MonthlyManpower.ToString("N2")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MaxManpower)
+                @item.Manpower.ToString("N1")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LastBattleWon)
+                @item.MaxManpower.ToString("N1")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LastWar)
+                @item.TotalMilitaryExperience.ToString("N0")
+            </td>
+            <td>
+                @item.LastBattleWon.ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @item.LastWar.ToString("dd/MM/yyyy")
             </td>
         </tr>
     }

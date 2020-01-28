@@ -22,6 +22,12 @@
                 Last Month Income
             </th>
             <th>
+                Last Month Expense
+            </th>
+            <th>
+                Last Month Net Earning
+            </th>
+            <th>
                 Accumulated Gold
             </th>
             <th>
@@ -34,25 +40,31 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Tag)
+                @item.Tag
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PlayedBy)
+                @item.PlayedBy
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AveragedIncome)
+                @item.AveragedIncome.ToString("N1")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Gold)
+                @item.Gold.ToString("N0")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LastMonthIncome)
+                @item.LastMonthIncome.ToString("N1")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AccumulatedGold)
+                @item.LastMonthExpense.ToString("N1")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SpentGold)
+                @item.LastMonthNetEarnings.ToString("N1")
+            </td>
+            <td>
+                @item.AccumulatedGold.ToString("N0")
+            </td>
+            <td>
+                @item.SpentGold.ToString("N0")
             </td>
         </tr>
     }

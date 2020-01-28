@@ -11,10 +11,25 @@ namespace Imperator.Save.Parser
                 case "key":
                     Key = parser.ReadString();
                     break;
+                case "owner":
+                    OwnerId = parser.ReadInt32();
+                    break;
+                case "prestige":
+                    Prestige = parser.ReadDouble();
+                    break;
+                case "color":
+                    parser.ReadInt32();
+                    break;
+                case "member":
+                    parser.ReadIntList();
+                    break;
+                case "culture":
+                    Culture = parser.ReadString();
+                    break;
             }
            
         }
-
+        
         public FamilyParser(SaveParser save, int familyId)
         {
             Save = save;

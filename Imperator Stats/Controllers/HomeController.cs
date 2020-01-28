@@ -26,6 +26,7 @@ namespace ImperatorStats.Controllers
         {
             return View();
         }
+        [HttpGet("/SaveList")]
         public IActionResult SaveList()
         {
             return View(new SavesListViewModel(_db.Saves.ToList()));
@@ -68,13 +69,13 @@ namespace ImperatorStats.Controllers
             return View("SaveList", new SavesListViewModel(_db.Saves.Take(20).ToList(), response));
         }
 
-        [HttpGet("/Home/Save/{id:int}")]
+        [HttpGet("/{id:int}")]
         public IActionResult Save(int id)
         {
             var save =_db.Saves.Find(id);
             return View(new SaveViewModel(save));
         }
-        [HttpGet("/Home/Economy/{id:int}")]
+        [HttpGet("{id:int}/Economy")]
         public IActionResult Economy(int id)
         {
             var countries =_db.Countries.Where(x => x.SaveId == id)
@@ -83,7 +84,7 @@ namespace ImperatorStats.Controllers
                 .OrderByDescending(x => x.AveragedIncome).ToList();
             return View(new CountriesViewModel(countries));
         }
-        [HttpGet("/Home/Technology/{id:int}")]
+        [HttpGet("{id:int}/Technology")]
         public IActionResult Technology(int id)
         {
             var countries =_db.Countries.Where(x => x.SaveId == id)
@@ -93,16 +94,18 @@ namespace ImperatorStats.Controllers
                 .ToList().OrderByDescending(x => x.AverageTechLevel).ToList();
             return View(new CountriesViewModel(countries));
         }
-        [HttpGet("/Home/Demography/{id:int}")]
+        [HttpGet("{id:int}/Demography")]
         public IActionResult Demography(int id)
         {
             var countries =_db.Countries.Where(x => x.SaveId == id)
                 .Include(x => x.Players)
+                .Include(x => x.Provinces)
+                .ThenInclude(x => x.Pops)
                 .Where(x => x.Players.Count > 0)
                 .OrderByDescending(x => x.TotalPopulation).ToList();
             return View(new CountriesViewModel(countries));
         }
-        [HttpGet("/Home/Military/{id:int}")]
+        [HttpGet("{id:int}/Military")]
         public IActionResult Military(int id)
         {
             var countries =_db.Countries.Where(x => x.SaveId == id)

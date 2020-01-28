@@ -85,8 +85,7 @@ namespace Imperator.Save.Parser
                     parser.Parse(new PopulationManager(this));
                     break;
                 case "provinces":
-                    var pManager = parser.Parse(new ProvinceManager(this));
-                    ProvincesDictionary = pManager.Provinces;
+                    parser.Parse(new ProvinceManager(this));
                     foreach (var c in ProvincesDictionary.Values.Where(x => x != null))
                     {
                         Provinces.Add(c);

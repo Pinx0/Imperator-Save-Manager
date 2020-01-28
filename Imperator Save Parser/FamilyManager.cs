@@ -1,20 +1,18 @@
-﻿using Pdoxcl2Sharp;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
+using Pdoxcl2Sharp;
 
 namespace Imperator.Save.Parser
 {
     public class FamilyManager : IParadoxRead
     {
-        public SaveParser Save { get; set; }
-        public IDictionary<int, FamilyParser> Families { get; private set; } = new Dictionary<int, FamilyParser>();
+        private SaveParser Save { get; }
         public FamilyManager(SaveParser save)
         {
             Save = save;
         }
         public void TokenCallback(ParadoxParser parser, string token)
         {
-            Families = parser.ReadDictionary(
+            Save.FamiliesDictionary = parser.ReadDictionary(
                 x =>
                 {
                     if (int.TryParse(x.ReadString(), out int id))
@@ -32,13 +30,10 @@ namespace Imperator.Save.Parser
                 x.ReadString();
                 return null;
             });
-            Save.FamiliesDictionary = Families;
-            foreach (var f in Families.Values.Where(f => f != null))
+            foreach (var f in Save.FamiliesDictionary.Values.Where(f => f != null))
             {
                 Save.Families.Add(f);
             }
-
         }
-
     }
 }

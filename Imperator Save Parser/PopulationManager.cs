@@ -6,15 +6,14 @@ namespace Imperator.Save.Parser
 {
     public class PopulationManager : IParadoxRead
     {
-        public SaveParser Save { get; set; }
-        public IDictionary<int, PopulationParser> Pops { get; private set; } = new Dictionary<int, PopulationParser>();
+        private SaveParser Save { get; }
         public PopulationManager(SaveParser save)
         {
             Save = save;
         }
         public void TokenCallback(ParadoxParser parser, string token)
         {
-            Pops = parser.ReadDictionary( x =>
+            Save.PopsDictionary = parser.ReadDictionary( x =>
             {
                 if (int.TryParse(x.ReadString(), out int id))
                     return id;
@@ -31,8 +30,7 @@ namespace Imperator.Save.Parser
                 x.ReadString();
                 return null;
             });
-            Save.PopsDictionary = Pops;
-            foreach (var c in Pops.Values.Where(x => x != null))
+            foreach (var c in Save.PopsDictionary.Values.Where(x => x != null))
             {
                 Save.Pops.Add(c);
             }

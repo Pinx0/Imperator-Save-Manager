@@ -17,6 +17,9 @@ namespace Imperator.Save.Parser
                 case "lastmonthincome":
                     Country.LastMonthIncome = parser.ReadDouble();
                     break;
+                case "lastmonthexpense":
+                    Country.LastMonthExpense = parser.ReadDouble();
+                    break;
                 case "telemetry_accumulated":
                     parser.Parse(new CountryEconomyTelemetryParser(TelemetryType.Accumulated, Country));
                     break;

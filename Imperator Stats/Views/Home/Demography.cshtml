@@ -16,10 +16,28 @@
                 Total Pops
             </th>
             <th>
+                Total Growth
+            </th>
+            <th>
                 Religious Unity
             </th>
             <th>
-                Disloyal Pops
+                Cultural Unity
+            </th>
+            <th>
+                Same Religion & Culture
+            </th>
+            <th>
+                Citizen (%)
+            </th>
+            <th>
+                Freemen (%)
+            </th>
+            <th>
+                Tribesmen (%)
+            </th>
+            <th>
+                Slaves (%)
             </th>
             <th>
                 Disloyal Pops (%)
@@ -31,22 +49,40 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Tag)
+                @item.Tag
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PlayedBy)
+                @item.PlayedBy
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TotalPopulation)
+                @item.TotalPopulation.ToString("N0")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ReligiousUnity)
+                @item.PopulationGrowth.ToString("P0")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DisloyalPops)
+                @item.ReligiousUnity.ToString("p0")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DisloyaltyPercentage)
+                @item.CulturalUnity.ToString("p0")
+            </td>
+            <td>
+                @item.CulturalAndReligiousUnity.ToString("p0")
+            </td>
+            <td>
+                @item.CitizenFraction.ToString("p0")
+            </td>
+            <td>
+                @item.FreemenFraction.ToString("p0")
+            </td>
+            <td>
+                @item.TribesmenFraction.ToString("p0")
+            </td>
+            <td>
+                @item.SlavesFraction.ToString("p0")
+            </td>
+            <td>
+                @item.DisloyaltyPercentage.ToString("P0")
             </td>
         </tr>
     }

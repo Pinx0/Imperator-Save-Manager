@@ -6,15 +6,14 @@ namespace Imperator.Save.Parser
 {
     public class CountryManager : IParadoxRead
     {
-        public SaveParser Save { get; set; }
-        public IDictionary<int, CountryParser> Countries { get; private set; } = new Dictionary<int, CountryParser>();
+        private SaveParser Save { get; }
         public CountryManager(SaveParser save)
         {
             Save = save;
         }
         public void TokenCallback(ParadoxParser parser, string token)
         {
-            Countries = parser.ReadDictionary( x =>
+            Save.CountriesDictionary = parser.ReadDictionary( x =>
             {
                 if (int.TryParse(x.ReadString(), out int id))
                     return id;
@@ -29,8 +28,7 @@ namespace Imperator.Save.Parser
                 x.ReadString();
                 return null;
             });
-            Save.CountriesDictionary = Countries;
-            foreach (var c in Countries.Values.Where(x => x != null))
+            foreach (var c in Save.CountriesDictionary.Values.Where(x => x != null))
             {
                 Save.Countries.Add(c);
             }
