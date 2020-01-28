@@ -75,21 +75,60 @@ body {
 .custom-file{
     outline: none;
 }
+
+.custom-file-input:lang(en) ~ .custom-file-label::after {
+    content: 'Select your save';
+}
+
+.custom-file-label {
+    border: 1px solid #c1a45a;
+}
+
+.custom-file-label::after {
+    color: #a0895d;
+    font-family: 'Cinzel', serif;
+    background-color: #F7E6A1;
+}
+
 .btn {
     border-radius: 15px;
     font-family: 'Cinzel', serif;
     text-transform: uppercase;
 }
-.btn-primary{
-    background-color: #F7E6A1;
-    color: #c1a45a;
+
+.btn-imperator {
+    background-color: #a0895d;
+    color: #F7E6A1;
     border: none;
 }
-.btn-primary:hover,
-.btn-primary:focus,
-.btn-primary:active{
-    background-color: #F7E6A1;
-    color: #c1a45a;
+
+.btn-imperator:hover,
+.btn-imperator:focus,
+.btn-imperator:active {
+    background-color: #c1a45a;
+    color: #F7E6A1;
+}
+
+/* Tablas */
+.table thead {
+    font-family: 'Cinzel', serif;
+}
+
+.table thead th {
+    border-top: none;
+    border-bottom: 1px solid #c1a45a;
+}
+
+.table td, .table th {
+    border-bottom: 1px solid #c1a45a;
+}
+
+table tbody tr:nth-child(odd) {
+    background-color: #f5f0d4;
+}
+
+.table thead th{
+    vertical-align: middle;
 }
 
 /* Header */
@@ -127,5 +166,15 @@ body {
 h1 {
     font-family: 'Cinzel', serif;
     color: #c1a45a;
+}
+
+a {
+    color: #a0895d;
+}
+
+a:hover,
+a:focus,
+a:active {
+    color: #c1a45a
 }
 
