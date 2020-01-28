@@ -28,10 +28,6 @@ namespace Imperator.Save.Parser
                 x.ReadString();
                 return null;
             });
-            foreach (var c in Save.CountriesDictionary.Values.Where(x => x != null))
-            {
-                Save.Countries.Add(c);
-            }
         }
     }
 }

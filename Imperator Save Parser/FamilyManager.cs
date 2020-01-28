@@ -30,10 +30,6 @@ namespace Imperator.Save.Parser
                 x.ReadString();
                 return null;
             });
-            foreach (var f in Save.FamiliesDictionary.Values.Where(f => f != null))
-            {
-                Save.Families.Add(f);
-            }
         }
     }
 }

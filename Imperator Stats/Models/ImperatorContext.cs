@@ -30,7 +30,7 @@ namespace ImperatorStats.Models
             modelBuilder.Entity<Country>().HasMany(c => c.Players).WithOne(x => x.Country).HasForeignKey(x => new {x.SaveId, x.CountryId});
             modelBuilder.Entity<Country>().HasMany(c => c.Families).WithOne(x => x.Country).HasForeignKey(x => new {x.SaveId, x.OwnerId});
             modelBuilder.Entity<Country>().HasMany(c => c.Provinces).WithOne(x => x.Owner);
-            modelBuilder.Entity<Country>().HasKey(c => new { c.SaveId, c.CountryId });
+            modelBuilder.Entity<Country>().HasKey(c => new { c.Save, c.CountryId });
             modelBuilder.Entity<Country>().Ignore(c => c.PlayedBy);
             modelBuilder.Entity<Country>().Ignore(c => c.DisloyalPops);
             modelBuilder.Entity<Country>().Ignore(c => c.DisloyaltyPercentage);

@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Z.EntityFramework.Extensions;
 
 namespace ImperatorStats
 {
@@ -25,6 +26,13 @@ namespace ImperatorStats
             services.AddControllersWithViews();
             services.AddDbContext<ImperatorContext>(options =>
                options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+
+            EntityFrameworkManager.ContextFactory = context =>
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<ImperatorContext>();
+                optionsBuilder.UseMySql(Configuration.GetConnectionString("DefaultConnection"));
+                return new ImperatorContext(optionsBuilder.Options);
+            };
             services.AddRazorPages().AddRazorRuntimeCompilation();
             services.Configure<ForwardedHeadersOptions>(options =>
             {

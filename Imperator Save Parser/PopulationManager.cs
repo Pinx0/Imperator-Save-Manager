@@ -30,10 +30,6 @@ namespace Imperator.Save.Parser
                 x.ReadString();
                 return null;
             });
-            foreach (var c in Save.PopsDictionary.Values.Where(x => x != null))
-            {
-                Save.Pops.Add(c);
-            }
         }
     }
 }

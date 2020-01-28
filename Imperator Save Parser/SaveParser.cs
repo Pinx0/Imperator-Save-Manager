@@ -1,6 +1,5 @@
 ﻿using Pdoxcl2Sharp;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Imperator.Save.Parser
 {
@@ -86,10 +85,6 @@ namespace Imperator.Save.Parser
                     break;
                 case "provinces":
                     parser.Parse(new ProvinceManager(this));
-                    foreach (var c in ProvincesDictionary.Values.Where(x => x != null))
-                    {
-                        Provinces.Add(c);
-                    }
                     break;
                 case "road_network":
                     parser.Parse(new IgnoredEntity());

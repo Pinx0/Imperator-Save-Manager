@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Imperator.Save;
 using Microsoft.AspNetCore.Mvc;
 using ImperatorStats.Models;
 using Microsoft.AspNetCore.Http;
@@ -46,7 +45,6 @@ namespace ImperatorStats.Controllers
                         await using (var stream = new FileStream(filePath, FileMode.Create))
                         {
                             await formFile.CopyToAsync(stream);
-                       
                         }
                         await using (var stream = new FileStream(filePath, FileMode.Open))
                         {
@@ -57,15 +55,23 @@ namespace ImperatorStats.Controllers
                             }
                             else
                             {
-                                _db.Saves.Add((Save)save);
-                                response = "Save added correctly.";
+                                _db.Saves.Add(save);
+                                _db.SaveChanges();
+                                _db.BulkInsert(save.FamiliesDictionary.Values.Where(f => f != null));
+                                _db.BulkInsert(save.PopsDictionary.Values.Where(f => f != null));
+                                _db.BulkInsert(save.CountriesDictionary.Values.Where(f => f != null));
+                                _db.BulkInsert(save.ProvincesDictionary.Values.Where(f => f != null));
+                                //_db.Families.AddRange(save.FamiliesDictionary.Values.Where(f => f != null));
+                                //_db.Pops.AddRange(save.PopsDictionary.Values.Where(f => f != null));
+                                //_db.Countries.AddRange(save.CountriesDictionary.Values.Where(f => f != null));
+                               // _db.Provinces.AddRange(save.ProvincesDictionary.Values.Where(f => f != null));
+                               response = "Successfully uploaded.";
                             }
-                            _db.SaveChanges();
+                            
                         }
                     }
                 }
             }
-            
             return View("SaveList", new SavesListViewModel(_db.Saves.Take(20).ToList(), response));
         }
 
