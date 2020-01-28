@@ -1,5 +1,6 @@
 ﻿using Pdoxcl2Sharp;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Imperator.Save.Parser
 {
@@ -150,6 +151,36 @@ namespace Imperator.Save.Parser
                     parser.Parse(new CountryPlayerParser(this));
                     break;
             }
+        }
+
+        public SaveParser UpdateSaveId()
+        {
+            foreach(var c in CountriesDictionary.Values.Where(f => f != null))
+            {
+                c.SaveId = SaveId;
+                foreach (var cd in c.Players)
+                {
+                    cd.SaveId = SaveId;
+                }
+                foreach (var cd in c.Technologies)
+                {
+                    cd.SaveId = SaveId;
+                }
+            }
+            foreach(var c in FamiliesDictionary.Values.Where(f => f != null))
+            {
+                c.SaveId = SaveId;
+            }
+            foreach(var c in ProvincesDictionary.Values.Where(f => f != null))
+            {
+                c.SaveId = SaveId;
+            }
+            foreach(var c in PopsDictionary.Values.Where(f => f != null))
+            {
+                c.SaveId = SaveId;
+            }
+
+            return this;
         }
 
     }

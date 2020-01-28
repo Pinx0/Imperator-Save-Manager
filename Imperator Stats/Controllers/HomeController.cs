@@ -57,14 +57,13 @@ namespace ImperatorStats.Controllers
                             {
                                 _db.Saves.Add(save);
                                 _db.SaveChanges();
+                                save.UpdateSaveId();
                                 _db.BulkInsert(save.FamiliesDictionary.Values.Where(f => f != null));
                                 _db.BulkInsert(save.PopsDictionary.Values.Where(f => f != null));
                                 _db.BulkInsert(save.CountriesDictionary.Values.Where(f => f != null));
+                                _db.BulkInsert(save.CountriesDictionary.Values.Where(f => f != null).SelectMany(c => c.Players));
+                                _db.BulkInsert(save.CountriesDictionary.Values.Where(f => f != null).SelectMany(c => c.Technologies));
                                 _db.BulkInsert(save.ProvincesDictionary.Values.Where(f => f != null));
-                                //_db.Families.AddRange(save.FamiliesDictionary.Values.Where(f => f != null));
-                                //_db.Pops.AddRange(save.PopsDictionary.Values.Where(f => f != null));
-                                //_db.Countries.AddRange(save.CountriesDictionary.Values.Where(f => f != null));
-                               // _db.Provinces.AddRange(save.ProvincesDictionary.Values.Where(f => f != null));
                                response = "Successfully uploaded.";
                             }
                             
