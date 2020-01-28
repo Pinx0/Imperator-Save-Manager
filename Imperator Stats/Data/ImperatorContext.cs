@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using Imperator.Save;
+using Imperator.Save.Parser;
 using Microsoft.EntityFrameworkCore;
 
-namespace ImperatorStats.Models
+namespace ImperatorStats.Data
 {
     public class ImperatorContext : DbContext
     {
@@ -17,6 +19,20 @@ namespace ImperatorStats.Models
         public ImperatorContext(DbContextOptions<ImperatorContext> options) : base(options)
         {
             
+        }
+
+        public int BulkSave(SaveParser save)
+        {
+            Saves.Add(save);
+            SaveChanges();
+            save.UpdateSaveId();
+            this.BulkInsert(save.FamiliesDictionary.Values.Where(f => f != null));
+            this.BulkInsert(save.PopsDictionary.Values.Where(f => f != null));
+            this.BulkInsert(save.CountriesDictionary.Values.Where(f => f != null));
+            this.BulkInsert(save.CountriesDictionary.Values.Where(f => f != null).SelectMany(c => c.Players));
+            this.BulkInsert(save.CountriesDictionary.Values.Where(f => f != null).SelectMany(c => c.Technologies));
+            this.BulkInsert(save.ProvincesDictionary.Values.Where(f => f != null));
+            return save.SaveId;
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

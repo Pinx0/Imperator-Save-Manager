@@ -9,18 +9,17 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Pdoxcl2Sharp;
 using Imperator.Save.Parser;
+using ImperatorStats.Data;
 
 namespace ImperatorStats.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ImperatorContext _db;
-
         public HomeController(ImperatorContext db)
         {
             _db = db;
         }
-
         public IActionResult Index()
         {
             return View();
@@ -55,16 +54,7 @@ namespace ImperatorStats.Controllers
                                 var oldSave =_db.Saves.FirstOrDefault(s => s.SaveKey == save.SaveKey);
                                 return View("Save",new SaveViewModel(oldSave));
                             }
-                            _db.Saves.Add(save);
-                            _db.SaveChanges();
-                            save.UpdateSaveId();
-                            saveId = save.SaveId;
-                            _db.BulkInsert(save.FamiliesDictionary.Values.Where(f => f != null));
-                            _db.BulkInsert(save.PopsDictionary.Values.Where(f => f != null));
-                            _db.BulkInsert(save.CountriesDictionary.Values.Where(f => f != null));
-                            _db.BulkInsert(save.CountriesDictionary.Values.Where(f => f != null).SelectMany(c => c.Players));
-                            _db.BulkInsert(save.CountriesDictionary.Values.Where(f => f != null).SelectMany(c => c.Technologies));
-                            _db.BulkInsert(save.ProvincesDictionary.Values.Where(f => f != null));
+                            saveId = _db.BulkSave(save);
                         }
                     }
                 }
@@ -76,7 +66,6 @@ namespace ImperatorStats.Controllers
             var currentSave =_db.Saves.Find(saveId);
             return View("Save",new SaveViewModel(currentSave));
         }
-
         [HttpGet("/{id:int}")]
         public IActionResult Save(int id)
         {
@@ -122,7 +111,6 @@ namespace ImperatorStats.Controllers
                 .OrderByDescending(x => x.TotalCohorts).ToList();
             return View(new CountriesViewModel(countries));
         }
-       
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
