@@ -3,7 +3,13 @@
     ViewData["Title"] = "Saves";
 }
 <h1>@ViewData["Title"]</h1>
-<h2>@ViewData.Model.Message</h2>
+<div class="alert alert-info alert-dismissible fade show" role="alert">
+    @ViewData.Model.Message
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
 <table id="myTable" class="table">
     <thead>
         <tr>
@@ -29,7 +35,7 @@
                 @Html.DisplayFor(modelItem => item.SaveKey)
             </td>
             <td>
-                <a asp-controller="Home" asp-action="Save" asp-route-id="@item.SaveId">View</a>
+                <a asp-controller="Home" asp-action="Save" asp-route-id="@item.SaveId"><i class="material-icons">remove_red_eye</i></a>
             </td>
         </tr>
         }
