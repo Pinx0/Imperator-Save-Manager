@@ -3,13 +3,15 @@
     ViewData["Title"] = "Saves";
 }
 <h1>@ViewData["Title"]</h1>
-<div class="alert alert-info alert-dismissible fade show" role="alert">
-    @ViewData.Model.Message
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>
-
+@if (!string.IsNullOrWhiteSpace(Model.Message))
+{
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        @Model.Message
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>   
+}
 <table id="myTable" class="table">
     <thead>
         <tr>
