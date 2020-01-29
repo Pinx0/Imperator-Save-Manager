@@ -11,6 +11,11 @@ namespace ImperatorStats.Models
         public int TotalPops => _db.Pops.Count(x => x.Province != null && x.SaveId == Save.SaveId);
         public int TotalProvinces => _db.Provinces.Count(x => x.SaveId == Save.SaveId);
         public int GrowingPops => _db.Pops.Count(x => x.Province == null && x.SaveId == Save.SaveId);
+        public double TotalGold => _db.Countries.Where(x => x.SaveId == Save.SaveId).Sum(x => x.Gold);
+        public double TotalSpentGold => _db.Countries.Where(x => x.SaveId == Save.SaveId).Sum(x => x.SpentGold);
+        public double TotalGoldLastMonth => _db.Countries.Where(x => x.SaveId == Save.SaveId).Sum(x => x.LastMonthIncome);
+        public double TotalGoldSpentLastMonth => _db.Countries.Where(x => x.SaveId == Save.SaveId).Sum(x => x.LastMonthExpense);
+        public double TotalNetGoldLastMonth => _db.Countries.Where(x => x.SaveId == Save.SaveId).Sum(x => x.LastMonthIncome - x.LastMonthExpense);
         public Province MostPopulatedCity => _db.Provinces.Where(x => x.Rank == ProvinceRank.City  && x.SaveId == Save.SaveId).OrderByDescending(x => x.Pops.Count).FirstOrDefault();
         public Province MostPopulatedSettlement => _db.Provinces.Where(x => x.Rank == ProvinceRank.Settlement  && x.SaveId == Save.SaveId).OrderByDescending(x => x.Pops.Count).FirstOrDefault();
         public Province MostPopulatedMetropolis => _db.Provinces.Where(x => x.Rank == ProvinceRank.Metropolis  && x.SaveId == Save.SaveId).OrderByDescending(x => x.Pops.Count).FirstOrDefault();

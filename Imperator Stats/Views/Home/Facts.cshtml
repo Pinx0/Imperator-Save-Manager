@@ -9,7 +9,7 @@
         Total pops:
     </span>
     <span>
-        @Model.TotalPops
+        @Model.TotalPops.ToString("N0")
     </span>
 </div>
 <div>
@@ -17,7 +17,7 @@
         Growing pops:
     </span>
     <span>
-        @Model.GrowingPops
+        @Model.GrowingPops.ToString("N0")
     </span>
 </div>
 <div>
@@ -25,7 +25,7 @@
         Total provinces:
     </span>
     <span>
-        @Model.TotalProvinces
+        @Model.TotalProvinces.ToString("N0")
     </span>
 </div>
 <div>
@@ -33,7 +33,7 @@
         Most populated settlement:
     </span>
     <span>
-        @Model.MostPopulatedSettlement?.ProvinceId (@Model.MostPopulatedSettlementPops pops)
+        @Model.MostPopulatedSettlement?.ProvinceId (@Model.MostPopulatedSettlementPops.ToString("N0") pops)
     </span>
 </div>
 <div>
@@ -41,7 +41,7 @@
         Most populated city:
     </span>
     <span>
-        @Model.MostPopulatedCity?.ProvinceId (@Model.MostPopulatedCityPops pops)
+        @Model.MostPopulatedCity?.ProvinceId (@Model.MostPopulatedCityPops.ToString("N0") pops)
     </span>
 </div>
 <div>
@@ -49,7 +49,7 @@
         Most populated metropolis:
     </span>
     <span>
-        @Model.MostPopulatedMetropolis?.ProvinceId (@Model.MostPopulatedMetropolisPops pops)
+        @Model.MostPopulatedMetropolis?.ProvinceId (@Model.MostPopulatedMetropolisPops.ToString("N0") pops)
     </span>
 </div>
 <div>
@@ -57,7 +57,7 @@
         Most spread religion:
     </span>
     <span>
-        @Model.MostSpreadReligion.Name (@Model.MostSpreadReligion.PopsCount pops, @Model.MostSpreadReligionPercent.ToString("P1") of the world)
+        @Model.MostSpreadReligion.Name (@Model.MostSpreadReligion.PopsCount.ToString("N0") pops, @Model.MostSpreadReligionPercent.ToString("P1") of the world)
     </span>
 </div>
 <div>
@@ -65,7 +65,7 @@
         Most common culture:
     </span>
     <span>
-        @Model.MostCommonCulture.Name (@Model.MostCommonCulture.PopsCount pops, @Model.MostCommonCulturePercent.ToString("P1") of the world)
+        @Model.MostCommonCulture.Name (@Model.MostCommonCulture.PopsCount.ToString("N0") pops, @Model.MostCommonCulturePercent.ToString("P1") of the world)
     </span>
 </div>
 <div>
@@ -73,7 +73,7 @@
         Citizen Pops:
     </span>
     <span>
-        @Model.CitizenPops (@Model.CitizenPopsPercent.ToString("P1"))
+        @Model.CitizenPops.ToString("N0") (@Model.CitizenPopsPercent.ToString("P1"))
     </span>
 </div>
 <div>
@@ -81,7 +81,7 @@
         Freemen Pops:
     </span>
     <span>
-        @Model.FreemenPops (@Model.FreemenPopsPercent.ToString("P1"))
+        @Model.FreemenPops.ToString("N0") (@Model.FreemenPopsPercent.ToString("P1"))
     </span>
 </div>
 <div>
@@ -89,7 +89,7 @@
         Tribesmen Pops:
     </span>
     <span>
-        @Model.TribesmenPops (@Model.TribesmenPopsPercent.ToString("P1"))
+        @Model.TribesmenPops.ToString("N0") (@Model.TribesmenPopsPercent.ToString("P1"))
     </span>
 </div>
 <div>
@@ -97,6 +97,46 @@
         Slave Pops:
     </span>
     <span>
-        @Model.SlavePops (@Model.SlavePopsPercent.ToString("P1"))
+        @Model.SlavePops.ToString("N0") (@Model.SlavePopsPercent.ToString("P1"))
+    </span>
+</div>
+<div>
+    <span>
+        Total Gold:
+    </span>
+    <span>
+        @Model.TotalGold.ToString("N0")
+    </span>
+</div>
+<div>
+    <span>
+        Total Gold Generated Last Month:
+    </span>
+    <span>
+        @Model.TotalGoldLastMonth.ToString("N0")
+    </span>
+</div>
+<div>
+    <span>
+        Total Gold Spent Last Month:
+    </span>
+    <span>
+        @Model.TotalGoldSpentLastMonth.ToString("N0")
+    </span>
+</div>
+<div>
+    <span>
+        Global Gold Net Increase Last Month:
+    </span>
+    <span>
+        @Model.TotalNetGoldLastMonth.ToString("N0")
+    </span>
+</div>
+<div>
+    <span>
+        Total Gold Spent in history:
+    </span>
+    <span>
+        @Model.TotalSpentGold.ToString("N0")
     </span>
 </div>
