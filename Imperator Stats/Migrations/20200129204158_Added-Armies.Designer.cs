@@ -4,14 +4,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 using ImperatorStats.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ImperatorStats.Migrations
 {
     [DbContext(typeof(ImperatorContext))]
-    partial class ImperatorContextModelSnapshot : ModelSnapshot
+    [Migration("20200129204158_Added-Armies")]
+    partial class AddedArmies
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

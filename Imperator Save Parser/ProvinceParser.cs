@@ -81,7 +81,7 @@ namespace Imperator.Save.Parser
                     parser.Parse(new IgnoredEntity());
                     break;
                 case "civilization_value":
-                    CivilizationValue = parser.ReadInt32();
+                    CivilizationValue = parser.ReadDouble();
                     break;
                 case "trade_goods":
                     TradeGood = parser.ReadString();

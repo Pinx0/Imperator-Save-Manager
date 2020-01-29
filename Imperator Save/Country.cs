@@ -27,6 +27,7 @@ namespace Imperator.Save
         public virtual ICollection<CountryPlayer> Players { get; set; } = new List<CountryPlayer>();
         public virtual ICollection<Province> Provinces { get; set; } = new List<Province>();
         public virtual ICollection<Family> Families { get; set; } = new List<Family>();
+        public virtual ICollection<Army> Armies { get; set; } = new List<Army>();
         public int StartingPopulation { get; set; }
         public double MonthlyManpower { get; set; }
         public double CurrentIncome { get; set; }
@@ -63,6 +64,11 @@ namespace Imperator.Save
         public double SpentPoliticalInfluence { get; set; }
         public double SpentMilitaryExperience { get; set; }
         public double TotalMilitaryExperience => SpentMilitaryExperience + MilitaryExperience;
+        public double AverageArmyExperience => Armies.Where(x => x.Class == ArmyClass.Land).Average(x => x.Experience);
+        public double AverageArmyMorale => Armies.Where(x => x.Class == ArmyClass.Land).Average(x => x.Morale);
+        public double AverageArmyStrength => Armies.Where(x => x.Class == ArmyClass.Land).Average(x => x.Strength);
+        public double MercenaryPercent => Armies.Count(x => x.Class == ArmyClass.Land && x.Category == ArmyCategory.Mercenary) / (double)TotalCohorts;
+        public double ClanPercent => Armies.Count(x => x.Class == ArmyClass.Land && x.Category == ArmyCategory.ClanRetinue) / (double)TotalCohorts;
         public int SameCulturePops => Provinces.SelectMany(p => p.Pops).Count(x => x.Culture == PrimaryCulture);
         public int SameCultureAndReligionPops => Provinces.SelectMany(p => p.Pops).Count(x => x.Culture == PrimaryCulture && x.Religion == MainReligion);
         public int CitizenPops => Provinces.SelectMany(p => p.Pops).Count(x => x.Type == PopType.Citizen);
@@ -70,6 +76,7 @@ namespace Imperator.Save
         public int TribesmenPops => Provinces.SelectMany(p => p.Pops).Count(x => x.Type == PopType.Tribesman);
         public int SlavePops => Provinces.SelectMany(p => p.Pops).Count(x => x.Type == PopType.Slave);
         public int TotalProvinces => Provinces.Count;
+        public double AverageCivilization => Provinces.Sum(p => p.CivilizationValue * p.Pops.Count) / (double)Provinces.Sum(p => p.Pops.Count);
         public double PopulationDensity => TotalPopulation/(double)TotalProvinces;
         public double CitizenFraction => CitizenPops/(double)TotalPopulation;
         public double FreemenFraction => FreemenPops/(double)TotalPopulation;
@@ -100,6 +107,25 @@ namespace Imperator.Save
                                           OratoryTechnology.Level + OratoryTechnology.Progress / 100.0 +
                                           ReligiousTechnology.Level + ReligiousTechnology.Progress / 100.0)/4.0;
 
-        
+        public int TotalArchers => Armies.Count(x => x.Type == ArmyType.Archers);
+        public int TotalLightInfantry => Armies.Count(x => x.Type == ArmyType.LightInfantry);
+        public int TotalHeavyInfantry => Armies.Count(x => x.Type == ArmyType.HeavyInfantry);
+        public int TotalLightCavalry => Armies.Count(x => x.Type == ArmyType.LightCavalry);
+        public int TotalHeavyCavalry => Armies.Count(x => x.Type == ArmyType.HeavyCavalry);
+        public int TotalChariots => Armies.Count(x => x.Type == ArmyType.Chariots);
+        public int TotalElephants => Armies.Count(x => x.Type == ArmyType.WarElephant);
+        public int TotalHorseArchers => Armies.Count(x => x.Type == ArmyType.HorseArchers);
+        public int TotalCamels => Armies.Count(x => x.Type == ArmyType.Camels);
+        public int TotalSupplyTrains => Armies.Count(x => x.Type == ArmyType.SupplyTrain);
+        public double ArchersPercent => TotalArchers / (double) TotalCohorts;
+        public double LightInfantryPercent => TotalLightInfantry / (double) TotalCohorts;
+        public double HeavyInfantryPercent => TotalHeavyInfantry / (double) TotalCohorts;
+        public double LightCavalryPercent => TotalLightCavalry / (double) TotalCohorts;
+        public double HeavyCavalryPercent => TotalHeavyCavalry / (double) TotalCohorts;
+        public double ChariotsPercent => TotalChariots / (double) TotalCohorts;
+        public double ElephantsPercent => TotalElephants / (double) TotalCohorts;
+        public double HorseArchersPercent => TotalHorseArchers / (double) TotalCohorts;
+        public double CamelsPercent => TotalCamels / (double) TotalCohorts;
+        public double SupplyTrainsPercent => TotalSupplyTrains / (double) TotalCohorts;
     }
 }

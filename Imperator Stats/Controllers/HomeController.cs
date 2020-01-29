@@ -85,6 +85,12 @@ namespace ImperatorStats.Controllers
             var save =_db.Saves.FirstOrDefault(x => x.SaveId == id);
             return View(new ReligionViewModel(save, _db));
         }
+        [HttpGet("{id:int}/TradeGoods")]
+        public IActionResult TradeGoods(int id)
+        {
+            var save =_db.Saves.FirstOrDefault(x => x.SaveId == id);
+            return View(new TradeGoodsViewModel(save, _db));
+        }
         [HttpGet("{id:int}/Culture")]
         public IActionResult Culture(int id)
         {
@@ -121,11 +127,22 @@ namespace ImperatorStats.Controllers
                 .OrderByDescending(x => x.TotalPopulation).ToList();
             return View(new CountriesViewModel(countries));
         }
+        [HttpGet("{id:int}/ArmyComposition")]
+        public IActionResult ArmyComposition(int id)
+        {
+            var countries =_db.Countries.Where(x => x.SaveId == id)
+                .Include(x => x.Players)
+                .Include(x => x.Armies)
+                .Where(x => x.Players.Count > 0)
+                .OrderByDescending(x => x.TotalCohorts).ToList();
+            return View(new CountriesViewModel(countries));
+        }
         [HttpGet("{id:int}/Military")]
         public IActionResult Military(int id)
         {
             var countries =_db.Countries.Where(x => x.SaveId == id)
                 .Include(x => x.Players)
+                .Include(x => x.Armies)
                 .Where(x => x.Players.Count > 0)
                 .OrderByDescending(x => x.TotalCohorts).ToList();
             return View(new CountriesViewModel(countries));

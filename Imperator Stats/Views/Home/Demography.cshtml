@@ -22,7 +22,10 @@
                 Population Density
             </th>
             <th>
-                Total Growth
+                Average Civilization
+            </th>
+            <th>
+                Growth From Start
             </th>
             <th>
                 Religious Unity
@@ -70,7 +73,10 @@
                 @item.PopulationDensity.ToString("N1")
             </td>
             <td>
-                @item.PopulationGrowth.ToString("P0")
+                @item.AverageCivilization.ToString("N1")
+            </td>
+            <td>
+                @item.PopulationGrowth.ToString("N2")x
             </td>
             <td>
                 @item.ReligiousUnity.ToString("p0")

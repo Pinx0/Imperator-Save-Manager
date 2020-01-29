@@ -28,10 +28,19 @@
                 Total Mil Exp
             </th>
             <th>
-                Last battle won
+                Avg. Army Experience
             </th>
             <th>
-                Last war
+                Avg. Army Morale
+            </th>
+            <th>
+                Avg. Army Strength
+            </th>
+            <th>
+                Mercenary (%)
+            </th>
+            <th>
+                Clan (%)
             </th>
         </tr>
     </thead>
@@ -61,10 +70,19 @@
                 @item.TotalMilitaryExperience.ToString("N0")
             </td>
             <td>
-                @item.LastBattleWon.ToString("dd/MM/yyyy")
+                @item.AverageArmyExperience.ToString("N1")
             </td>
             <td>
-                @item.LastWar.ToString("dd/MM/yyyy")
+                @item.AverageArmyMorale.ToString("N2")
+            </td>
+            <td>
+                @item.AverageArmyStrength.ToString("P1")
+            </td>
+            <td>
+                @item.MercenaryPercent.ToString("P0")
+            </td>
+            <td>
+                @item.ClanPercent.ToString("P0")
             </td>
         </tr>
     }

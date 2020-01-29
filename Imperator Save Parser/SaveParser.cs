@@ -10,6 +10,8 @@ namespace Imperator.Save.Parser
         public IDictionary<int,CountryParser> CountriesDictionary { get; set; } = new Dictionary<int, CountryParser>();
         public IDictionary<int,PopulationParser> PopsDictionary { get; set; } = new Dictionary<int, PopulationParser>();
         public IDictionary<int,ProvinceParser> ProvincesDictionary { get; set; } = new Dictionary<int, ProvinceParser>();
+        public IDictionary<int, ArmyParser> ArmiesDictionary { get; set; } = new Dictionary<int, ArmyParser>();
+
         public void TokenCallback(ParadoxParser parser, string token)
         {
             if (token.StartsWith("SAV") && SaveKey == null)
@@ -67,7 +69,7 @@ namespace Imperator.Save.Parser
                     parser.Parse(new IgnoredEntity());
                     break;
                 case "armies":
-                    parser.Parse(new IgnoredEntity());
+                    parser.Parse(new ArmyManager(this));
                     break;
                 case "country":
                     parser.Parse(new CountryManager(this));
@@ -176,6 +178,10 @@ namespace Imperator.Save.Parser
                 c.SaveId = SaveId;
             }
             foreach(var c in PopsDictionary.Values.Where(f => f != null))
+            {
+                c.SaveId = SaveId;
+            }
+            foreach(var c in ArmiesDictionary.Values.Where(f => f != null))
             {
                 c.SaveId = SaveId;
             }

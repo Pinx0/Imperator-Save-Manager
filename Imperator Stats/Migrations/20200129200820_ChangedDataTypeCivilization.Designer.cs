@@ -4,52 +4,21 @@ using System.ComponentModel.DataAnnotations.Schema;
 using ImperatorStats.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ImperatorStats.Migrations
 {
     [DbContext(typeof(ImperatorContext))]
-    partial class ImperatorContextModelSnapshot : ModelSnapshot
+    [Migration("20200129200820_ChangedDataTypeCivilization")]
+    partial class ChangedDataTypeCivilization
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
-
-            modelBuilder.Entity("Imperator.Save.Army", b =>
-                {
-                    b.Property<int>("SaveId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ArmyId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Category")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CountryId")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Experience")
-                        .HasColumnType("double");
-
-                    b.Property<double>("Morale")
-                        .HasColumnType("double");
-
-                    b.Property<double>("Strength")
-                        .HasColumnType("double");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
-
-                    b.HasKey("SaveId", "ArmyId");
-
-                    b.HasIndex("SaveId", "CountryId");
-
-                    b.ToTable("Army");
-                });
 
             modelBuilder.Entity("Imperator.Save.Country", b =>
                 {
@@ -387,21 +356,6 @@ namespace ImperatorStats.Migrations
                         .HasAnnotation("DatabaseGenerated", DatabaseGeneratedOption.Identity);
 
                     b.ToTable("Saves");
-                });
-
-            modelBuilder.Entity("Imperator.Save.Army", b =>
-                {
-                    b.HasOne("Imperator.Save.Save", "Save")
-                        .WithMany()
-                        .HasForeignKey("SaveId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Imperator.Save.Country", "Country")
-                        .WithMany("Armies")
-                        .HasForeignKey("SaveId", "CountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Imperator.Save.Country", b =>

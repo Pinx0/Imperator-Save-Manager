@@ -1,0 +1,96 @@
+﻿@model CountriesViewModel
+@{
+    ViewData["Title"] = "Armies composition";
+}
+<h1>@ViewData["Title"]</h1>
+<table id="myTable" class="table">
+    <thead>
+        <tr>
+            <th>
+                Tag
+            </th>
+            <th>
+                Played By
+            </th>
+            <th>
+                Archers
+            </th>
+            <th>
+                Light Infantry
+            </th>
+            <th>
+                Heavy Infantry
+            </th>
+            <th>
+                Light Cavalry
+            </th>
+            <th>
+                Heavy Cavalry
+            </th>
+            <th>
+                Chariots
+            </th>
+            <th>
+                Elephants
+            </th>
+            <th>
+                Horse Archers
+            </th>
+            <th>
+                Camels
+            </th>
+            <th>
+                Supply
+            </th>
+            <th>
+                Total
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Countries)
+    {
+        <tr>
+            <td>
+                @item.Tag
+            </td>
+            <td>
+                @item.PlayedBy
+            </td>
+            <td>
+                @item.TotalArchers.ToString("N0") (@item.ArchersPercent.ToString("P0"))
+            </td>
+            <td>
+                @item.TotalLightInfantry.ToString("N0") (@item.LightInfantryPercent.ToString("P0"))
+            </td>
+            <td>
+                @item.TotalHeavyInfantry.ToString("N0") (@item.HeavyInfantryPercent.ToString("P0"))
+            </td>
+            <td>
+                @item.TotalLightCavalry.ToString("N0") (@item.LightCavalryPercent.ToString("P0"))
+            </td>
+            <td>
+                @item.TotalHeavyCavalry.ToString("N0") (@item.HeavyCavalryPercent.ToString("P0"))
+            </td>
+            <td>
+                @item.TotalChariots.ToString("N0") (@item.ChariotsPercent.ToString("P0"))
+            </td>
+            <td>
+                @item.TotalElephants.ToString("N0") (@item.ElephantsPercent.ToString("P0"))
+            </td>
+            <td>
+                @item.TotalHorseArchers.ToString("N0") (@item.HorseArchersPercent.ToString("P0"))
+            </td>
+            <td>
+                @item.TotalCamels.ToString("N0") (@item.CamelsPercent.ToString("P0"))
+            </td>
+            <td>
+                @item.TotalSupplyTrains.ToString("N0") (@item.SupplyTrainsPercent.ToString("P0"))
+            </td>
+            <td>
+                @item.TotalCohorts.ToString("N0")
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

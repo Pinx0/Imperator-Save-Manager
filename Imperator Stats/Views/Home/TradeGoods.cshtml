@@ -1,0 +1,48 @@
+﻿@model TradeGoodsViewModel
+@{
+    ViewData["Title"] = "Trade goods Info";
+}
+<h1>@ViewData["Title"]</h1>
+<table id="myTable" class="table">
+    <thead>
+        <tr>
+            <th>
+                Trade good
+            </th>
+            <th>
+                Provinces
+            </th>
+            <th>
+                % of provinces
+            </th>
+            @*<th>
+                Quantity produced
+            </th>
+            <th>
+                % of world production
+            </th>*@
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.TradeGoods)
+    {
+        <tr>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @item.Quantity
+            </td>
+            <td>
+                @((item.Quantity / (double)Model.TotalProvinces).ToString("P1"))
+            </td>
+            @*<td>
+                @item.QuantityProduced
+            </td>
+            <td>
+                @((item.QuantityProduced / (double)Model.TotalProvinces).ToString("P1"))
+            </td>*@
+        </tr>
+    }
+    </tbody>
+</table>

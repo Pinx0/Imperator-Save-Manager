@@ -34,6 +34,7 @@ namespace ImperatorStats.Data
             this.BulkInsert(save.CountriesDictionary.Values.Where(f => f != null).SelectMany(c => c.Players));
             this.BulkInsert(save.CountriesDictionary.Values.Where(f => f != null).SelectMany(c => c.Technologies));
             this.BulkInsert(save.ProvincesDictionary.Values.Where(f => f != null));
+            this.BulkInsert(save.ArmiesDictionary.Values.Where(f => f != null));
             return save.SaveId;
         }
 

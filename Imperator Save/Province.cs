@@ -12,7 +12,7 @@ namespace Imperator.Save
         public string OriginalReligion { get; set; }
         public string Culture { get; set; }
         public string Religion { get; set; }
-        public int CivilizationValue { get; set; }
+        public double CivilizationValue { get; set; }
         public string TradeGood { get; set; }
         public virtual Country Owner { get; set; }
         public virtual Country Controller { get; set; }
