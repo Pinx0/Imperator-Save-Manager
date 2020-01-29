@@ -16,10 +16,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Saves[0].SaveId)
+                Save Id
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Saves[0].SaveKey)
+                Save Key
             </th>
             <th>
                
@@ -27,19 +27,19 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Saves)
-        {
+    @foreach (var item in Model.Saves)
+    {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.SaveId)
+                @item.SaveId
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SaveKey)
+                @item.SaveKey
             </td>
             <td>
                 <a asp-controller="Home" asp-action="Save" asp-route-id="@item.SaveId"><i class="material-icons">remove_red_eye</i></a>
             </td>
         </tr>
-        }
+    }
     </tbody>
 </table>
