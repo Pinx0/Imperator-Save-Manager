@@ -60,7 +60,7 @@ namespace Imperator.Save.Parser
                 case "pop":
                     var pop = SaveParser.PopsDictionary[parser.ReadInt32()];
                     pop.Province = this;
-                    Pops.Add(pop);
+                    //Pops.Add(pop);
                     break;
                 case "growing_pop":
                     parser.Parse(new IgnoredEntity());
@@ -107,7 +107,7 @@ namespace Imperator.Save.Parser
                         case "city":
                             Rank = ProvinceRank.City;
                             break;
-                        case "metropolis":
+                        case "city_metropolis":
                             Rank = ProvinceRank.Metropolis;
                             break;
                     }

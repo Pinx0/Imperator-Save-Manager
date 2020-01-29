@@ -1,0 +1,36 @@
+﻿@model ReligionViewModel
+@{
+    ViewData["Title"] = "Religion Info";
+}
+<h1>@ViewData["Title"]</h1>
+<table id="myTable" class="table">
+    <thead>
+        <tr>
+            <th>
+                Religion
+            </th>
+            <th>
+                Pops
+            </th>
+            <th>
+                % of world
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Religions)
+    {
+        <tr>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @item.PopsCount
+            </td>
+            <td>
+                @((item.PopsCount/(double)Model.TotalPops).ToString("P1"))
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

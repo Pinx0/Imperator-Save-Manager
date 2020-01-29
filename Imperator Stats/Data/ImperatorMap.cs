@@ -3,45 +3,82 @@ using System.Linq;
 using Imperator.Save;
 using Imperator.Save.Parser;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ImperatorStats.Data
 {
-    public class ImperatorMap : DbContext
+    public class SaveMap : IEntityTypeConfiguration<Save>
     {
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        public void Configure(EntityTypeBuilder<Save> builder)
         {
-            modelBuilder.Entity<Save>().HasKey(c => c.SaveId).HasAnnotation("DatabaseGenerated",DatabaseGeneratedOption.Identity);
-            modelBuilder.Entity<Save>().HasMany(c => c.Families).WithOne(x => x.Save).HasForeignKey(x => x.SaveId);
-            modelBuilder.Entity<Save>().HasMany(c => c.Countries).WithOne(x => x.Save).HasForeignKey(x => x.SaveId);
-            modelBuilder.Entity<Save>().HasMany(c => c.Provinces).WithOne(x => x.Save).HasForeignKey(x => x.SaveId);
-            modelBuilder.Entity<Save>().HasMany(c => c.Pops).WithOne(x => x.Save).HasForeignKey(x => x.SaveId);
-            modelBuilder.Entity<Country>().HasOne(c => c.Save);
-            modelBuilder.Entity<Country>().HasMany(c => c.Technologies).WithOne(x => x.Country).HasForeignKey(x => new {x.SaveId, x.CountryId});
-            modelBuilder.Entity<Country>().HasMany(c => c.Players).WithOne(x => x.Country).HasForeignKey(x => new {x.SaveId, x.CountryId});
-            modelBuilder.Entity<Country>().HasMany(c => c.Families).WithOne(x => x.Country).HasForeignKey(x => new {x.SaveId, x.OwnerId});
-            modelBuilder.Entity<Country>().HasMany(c => c.Provinces).WithOne(x => x.Owner);
-            modelBuilder.Entity<Country>().HasKey(c => new { c.SaveId, c.CountryId });
-            modelBuilder.Entity<Country>().Ignore(c => c.PlayedBy);
-            modelBuilder.Entity<Country>().Ignore(c => c.DisloyalPops);
-            modelBuilder.Entity<Country>().Ignore(c => c.DisloyaltyPercentage);
-            modelBuilder.Entity<Country>().Ignore(c => c.MilitaryTechnology);
-            modelBuilder.Entity<Country>().Ignore(c => c.CivicTechnology);
-            modelBuilder.Entity<Country>().Ignore(c => c.OratoryTechnology);
-            modelBuilder.Entity<Country>().Ignore(c => c.ReligiousTechnology);
-            modelBuilder.Entity<Family>().HasKey(c => new { c.SaveId, c.FamilyId });
-            modelBuilder.Entity<Family>().HasOne(c => c.Save);
-            modelBuilder.Entity<CountryPlayer>().HasKey(c => new { c.SaveId, c.CountryId, c.PlayerName });
-            modelBuilder.Entity<CountryPlayer>().HasOne(c => c.Country);
-            modelBuilder.Entity<CountryPlayer>().Property(c => c.PlayerName).HasMaxLength(100);
-            modelBuilder.Entity<CountryTechnology>().HasKey(c => new { c.SaveId, c.CountryId, c.Type });
-            modelBuilder.Entity<CountryTechnology>().HasOne(c => c.Country);
-            modelBuilder.Entity<Province>().HasKey(c => new { c.SaveId, c.ProvinceId });
-            modelBuilder.Entity<Province>().HasMany(c => c.Pops).WithOne(x => x.Province);
-            modelBuilder.Entity<Province>().HasOne(c => c.Save);
-            modelBuilder.Entity<Population>().HasKey(c => new { c.SaveId, c.PopId });
-            modelBuilder.Entity<Population>().HasOne(c => c.Province);
-            modelBuilder.Entity<Population>().HasOne(c => c.Save);
+            builder.HasKey(c => c.SaveId).HasAnnotation("DatabaseGenerated",DatabaseGeneratedOption.Identity);
+            builder.HasMany(c => c.Families).WithOne(x => x.Save).HasForeignKey(x => x.SaveId);
+            builder.HasMany(c => c.Countries).WithOne(x => x.Save).HasForeignKey(x => x.SaveId);
+            builder.HasMany(c => c.Provinces).WithOne(x => x.Save).HasForeignKey(x => x.SaveId);
+            builder.HasMany(c => c.Pops).WithOne(x => x.Save).HasForeignKey(x => x.SaveId);
         }
+    }
 
+    public class CountryMap : IEntityTypeConfiguration<Country>
+    {
+        public void Configure(EntityTypeBuilder<Country> builder)
+        {
+            builder.HasOne(c => c.Save);
+            builder.HasMany(c => c.Technologies).WithOne(x => x.Country).HasForeignKey(x => new {x.SaveId, x.CountryId});
+            builder.HasMany(c => c.Players).WithOne(x => x.Country).HasForeignKey(x => new {x.SaveId, x.CountryId});
+            builder.HasMany(c => c.Families).WithOne(x => x.Country).HasForeignKey(x => new {x.SaveId, x.OwnerId});
+            builder.HasMany(c => c.Provinces).WithOne(x => x.Owner);
+            builder.HasKey(c => new { c.SaveId, c.CountryId });
+            builder.Ignore(c => c.PlayedBy);
+            builder.Ignore(c => c.DisloyalPops);
+            builder.Ignore(c => c.DisloyaltyPercentage);
+            builder.Ignore(c => c.MilitaryTechnology);
+            builder.Ignore(c => c.CivicTechnology);
+            builder.Ignore(c => c.OratoryTechnology);
+            builder.Ignore(c => c.ReligiousTechnology);
+        }
+    }
+    public class FamilyMap : IEntityTypeConfiguration<Family>
+    {
+        public void Configure(EntityTypeBuilder<Family> builder)
+        {
+            builder.HasKey(c => new { c.SaveId, c.FamilyId });
+            builder.HasOne(c => c.Save);
+        }
+    }
+    public class CountryPlayerMap : IEntityTypeConfiguration<CountryPlayer>
+    {
+        public void Configure(EntityTypeBuilder<CountryPlayer> builder)
+        {
+            builder.HasKey(c => new { c.SaveId, c.CountryId, c.PlayerName });
+            builder.HasOne(c => c.Country);
+            builder.Property(c => c.PlayerName).HasMaxLength(100);
+        }
+    }
+    public class CountryTechnologyMap : IEntityTypeConfiguration<CountryTechnology>
+    {
+        public void Configure(EntityTypeBuilder<CountryTechnology> builder)
+        {
+            builder.HasKey(c => new { c.SaveId, c.CountryId, c.Type });
+            builder.HasOne(c => c.Country);
+        }
+    }
+    public class ProvinceMap : IEntityTypeConfiguration<Province>
+    {
+        public void Configure(EntityTypeBuilder<Province> builder)
+        {
+            builder.HasKey(c => new { c.SaveId, c.ProvinceId });
+            builder.HasMany(c => c.Pops).WithOne(x => x.Province);
+            builder.HasOne(c => c.Save);
+        }
+    }
+    public class PopulationMap : IEntityTypeConfiguration<Population>
+    {
+        public void Configure(EntityTypeBuilder<Population> builder)
+        {
+            builder.HasKey(c => new { c.SaveId, c.PopId });
+            builder.HasOne(c => c.Province);
+            builder.HasOne(c => c.Save);
+        }
     }
 }

@@ -1,0 +1,102 @@
+﻿@model FactsViewModel
+@{
+    ViewData["Title"] = "Global Facts";
+}
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <span>
+        Total pops:
+    </span>
+    <span>
+        @Model.TotalPops
+    </span>
+</div>
+<div>
+    <span>
+        Growing pops:
+    </span>
+    <span>
+        @Model.GrowingPops
+    </span>
+</div>
+<div>
+    <span>
+        Total provinces:
+    </span>
+    <span>
+        @Model.TotalProvinces
+    </span>
+</div>
+<div>
+    <span>
+        Most populated settlement:
+    </span>
+    <span>
+        @Model.MostPopulatedSettlement?.ProvinceId (@Model.MostPopulatedSettlementPops pops)
+    </span>
+</div>
+<div>
+    <span>
+        Most populated city:
+    </span>
+    <span>
+        @Model.MostPopulatedCity?.ProvinceId (@Model.MostPopulatedCityPops pops)
+    </span>
+</div>
+<div>
+    <span>
+        Most populated metropolis:
+    </span>
+    <span>
+        @Model.MostPopulatedMetropolis?.ProvinceId (@Model.MostPopulatedMetropolisPops pops)
+    </span>
+</div>
+<div>
+    <span>
+        Most spread religion:
+    </span>
+    <span>
+        @Model.MostSpreadReligion.Name (@Model.MostSpreadReligion.PopsCount pops, @Model.MostSpreadReligionPercent.ToString("P1") of the world)
+    </span>
+</div>
+<div>
+    <span>
+        Most common culture:
+    </span>
+    <span>
+        @Model.MostCommonCulture.Name (@Model.MostCommonCulture.PopsCount pops, @Model.MostCommonCulturePercent.ToString("P1") of the world)
+    </span>
+</div>
+<div>
+    <span>
+        Citizen Pops:
+    </span>
+    <span>
+        @Model.CitizenPops (@Model.CitizenPopsPercent.ToString("P1"))
+    </span>
+</div>
+<div>
+    <span>
+        Freemen Pops:
+    </span>
+    <span>
+        @Model.FreemenPops (@Model.FreemenPopsPercent.ToString("P1"))
+    </span>
+</div>
+<div>
+    <span>
+        Tribesmen Pops:
+    </span>
+    <span>
+        @Model.TribesmenPops (@Model.TribesmenPopsPercent.ToString("P1"))
+    </span>
+</div>
+<div>
+    <span>
+        Slave Pops:
+    </span>
+    <span>
+        @Model.SlavePops (@Model.SlavePopsPercent.ToString("P1"))
+    </span>
+</div>

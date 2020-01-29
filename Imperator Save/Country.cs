@@ -6,7 +6,7 @@ namespace Imperator.Save
 {
     public class Country 
     {
-        public Save Save { get; set; }
+        public virtual  Save Save { get; set; }
         public int SaveId { get; set; }
         public int CountryId { get; set; }
         public string Tag { get; set; }
@@ -23,10 +23,10 @@ namespace Imperator.Save
         public double AggressiveExpansion { get; set; }
         public double PoliticalInfluence { get; set; }
         public double MilitaryExperience { get; set; }
-        public ICollection<CountryTechnology> Technologies { get; set; } = new List<CountryTechnology>();
-        public ICollection<CountryPlayer> Players { get; set; } = new List<CountryPlayer>();
-        public ICollection<Province> Provinces { get; set; } = new List<Province>();
-        public ICollection<Family> Families { get; set; } = new List<Family>();
+        public virtual ICollection<CountryTechnology> Technologies { get; set; } = new List<CountryTechnology>();
+        public virtual ICollection<CountryPlayer> Players { get; set; } = new List<CountryPlayer>();
+        public virtual ICollection<Province> Provinces { get; set; } = new List<Province>();
+        public virtual ICollection<Family> Families { get; set; } = new List<Family>();
         public int StartingPopulation { get; set; }
         public double MonthlyManpower { get; set; }
         public double CurrentIncome { get; set; }
@@ -69,6 +69,8 @@ namespace Imperator.Save
         public int FreemenPops => Provinces.SelectMany(p => p.Pops).Count(x => x.Type == PopType.Freeman);
         public int TribesmenPops => Provinces.SelectMany(p => p.Pops).Count(x => x.Type == PopType.Tribesman);
         public int SlavePops => Provinces.SelectMany(p => p.Pops).Count(x => x.Type == PopType.Slave);
+        public int TotalProvinces => Provinces.Count;
+        public double PopulationDensity => TotalPopulation/(double)TotalProvinces;
         public double CitizenFraction => CitizenPops/(double)TotalPopulation;
         public double FreemenFraction => FreemenPops/(double)TotalPopulation;
         public double TribesmenFraction => TribesmenPops/(double)TotalPopulation;

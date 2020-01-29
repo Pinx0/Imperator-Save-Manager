@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Pdoxcl2Sharp;
 using Imperator.Save.Parser;
 using ImperatorStats.Data;
+using Z.EntityFramework.Plus;
 
 namespace ImperatorStats.Controllers
 {
@@ -71,6 +72,24 @@ namespace ImperatorStats.Controllers
         {
             var save =_db.Saves.Find(id);
             return View(new SaveViewModel(save));
+        }
+        [HttpGet("{id:int}/Facts")]
+        public IActionResult Facts(int id)
+        {
+            var save =_db.Saves.FirstOrDefault(x => x.SaveId == id);
+            return View(new FactsViewModel(save, _db));
+        }
+        [HttpGet("{id:int}/Religion")]
+        public IActionResult Religion(int id)
+        {
+            var save =_db.Saves.FirstOrDefault(x => x.SaveId == id);
+            return View(new ReligionViewModel(save, _db));
+        }
+        [HttpGet("{id:int}/Culture")]
+        public IActionResult Culture(int id)
+        {
+            var save =_db.Saves.FirstOrDefault(x => x.SaveId == id);
+            return View(new CultureViewModel(save, _db));
         }
         [HttpGet("{id:int}/Economy")]
         public IActionResult Economy(int id)
