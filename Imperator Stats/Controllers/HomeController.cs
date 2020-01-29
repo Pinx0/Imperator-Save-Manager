@@ -10,7 +10,6 @@ using Microsoft.EntityFrameworkCore;
 using Pdoxcl2Sharp;
 using Imperator.Save.Parser;
 using ImperatorStats.Data;
-using Z.EntityFramework.Plus;
 
 namespace ImperatorStats.Controllers
 {
@@ -129,6 +128,16 @@ namespace ImperatorStats.Controllers
         }
         [HttpGet("{id:int}/ArmyComposition")]
         public IActionResult ArmyComposition(int id)
+        {
+            var countries =_db.Countries.Where(x => x.SaveId == id)
+                .Include(x => x.Players)
+                .Include(x => x.Armies)
+                .Where(x => x.Players.Count > 0)
+                .OrderByDescending(x => x.TotalCohorts).ToList();
+            return View(new CountriesViewModel(countries));
+        }
+        [HttpGet("{id:int}/NavyComposition")]
+        public IActionResult NavyComposition(int id)
         {
             var countries =_db.Countries.Where(x => x.SaveId == id)
                 .Include(x => x.Players)

@@ -107,6 +107,19 @@ namespace Imperator.Save
                                           OratoryTechnology.Level + OratoryTechnology.Progress / 100.0 +
                                           ReligiousTechnology.Level + ReligiousTechnology.Progress / 100.0)/4.0;
 
+        public int TotalNavalCohorts => TotalLiburnian + TotalTrireme + TotalTetrere + TotalHexere + TotalOctere + TotalMegaPolyreme;
+        public int TotalLiburnian => Armies.Count(x => x.Type == ArmyType.Liburnian);
+        public int TotalTrireme => Armies.Count(x => x.Type == ArmyType.Trireme);
+        public int TotalTetrere => Armies.Count(x => x.Type == ArmyType.Tetrere);
+        public int TotalHexere => Armies.Count(x => x.Type == ArmyType.Hexere);
+        public int TotalOctere => Armies.Count(x => x.Type == ArmyType.Octere);
+        public int TotalMegaPolyreme => Armies.Count(x => x.Type == ArmyType.MegaPolyrreme);
+        public double LiburnianPercent => TotalNavalCohorts == 0 ? 0 : TotalLiburnian / (double) TotalNavalCohorts;
+        public double TriremePercent => TotalNavalCohorts == 0 ? 0 : TotalTrireme / (double) TotalNavalCohorts;
+        public double TetrerePercent => TotalNavalCohorts == 0 ? 0 : TotalTetrere / (double) TotalNavalCohorts;
+        public double HexerePercent => TotalNavalCohorts == 0 ? 0 : TotalHexere / (double) TotalNavalCohorts;
+        public double OcterePercent => TotalNavalCohorts == 0 ? 0 : TotalOctere / (double) TotalNavalCohorts;
+        public double MegaPolyremePercent => TotalNavalCohorts == 0 ? 0 : TotalMegaPolyreme / (double) TotalNavalCohorts;
         public int TotalArchers => Armies.Count(x => x.Type == ArmyType.Archers);
         public int TotalLightInfantry => Armies.Count(x => x.Type == ArmyType.LightInfantry);
         public int TotalHeavyInfantry => Armies.Count(x => x.Type == ArmyType.HeavyInfantry);

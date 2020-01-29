@@ -1,0 +1,72 @@
+﻿@model CountriesViewModel
+@{
+    ViewData["Title"] = "Navies composition";
+}
+<h1>@ViewData["Title"]</h1>
+<table id="myTable" class="table">
+    <thead>
+        <tr>
+            <th>
+                Tag
+            </th>
+            <th>
+                Played By
+            </th>
+            <th>
+                Liburnian
+            </th>
+            <th>
+                Trireme
+            </th>
+            <th>
+                Tetrere
+            </th>
+            <th>
+                Hexere
+            </th>
+            <th>
+                Octere
+            </th>
+            <th>
+                Mega-Polyreme
+            </th>
+            <th>
+                Total
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Countries)
+    {
+        <tr>
+            <td>
+                @item.Tag
+            </td>
+            <td>
+                @item.PlayedBy
+            </td>
+            <td>
+                @item.TotalLiburnian.ToString("N0") (@item.LiburnianPercent.ToString("P0"))
+            </td>
+            <td>
+                @item.TotalTrireme.ToString("N0") (@item.TriremePercent.ToString("P0"))
+            </td>
+            <td>
+                @item.TotalTetrere.ToString("N0") (@item.TetrerePercent.ToString("P0"))
+            </td>
+            <td>
+                @item.TotalHexere.ToString("N0") (@item.HexerePercent.ToString("P0"))
+            </td>
+            <td>
+                @item.TotalOctere.ToString("N0") (@item.OcterePercent.ToString("P0"))
+            </td>
+            <td>
+                @item.TotalMegaPolyreme.ToString("N0") (@item.MegaPolyremePercent.ToString("P0"))
+            </td>
+            <td>
+                @item.TotalNavalCohorts.ToString("N0")
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
