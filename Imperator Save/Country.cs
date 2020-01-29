@@ -76,7 +76,7 @@ namespace Imperator.Save
         public int TribesmenPops => Provinces.SelectMany(p => p.Pops).Count(x => x.Type == PopType.Tribesman);
         public int SlavePops => Provinces.SelectMany(p => p.Pops).Count(x => x.Type == PopType.Slave);
         public int TotalProvinces => Provinces.Count;
-        public double AverageCivilization => Provinces.Sum(p => p.CivilizationValue * p.Pops.Count) / (double)Provinces.Sum(p => p.Pops.Count);
+        public double AverageCivilization => Provinces.Sum(p => p.CivilizationValue * p.Pops.Count) / Provinces.Sum(p => p.Pops.Count);
         public double PopulationDensity => TotalPopulation/(double)TotalProvinces;
         public double CitizenFraction => CitizenPops/(double)TotalPopulation;
         public double FreemenFraction => FreemenPops/(double)TotalPopulation;

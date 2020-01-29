@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using ImperatorStats.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+// ReSharper disable All
 
 namespace ImperatorStats.Migrations
 {

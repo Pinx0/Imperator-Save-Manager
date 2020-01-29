@@ -1,6 +1,4 @@
 ﻿using Pdoxcl2Sharp;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Imperator.Save.Parser
 {

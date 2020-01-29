@@ -4,10 +4,8 @@ namespace Imperator.Save.Parser
 {
     public class ArmyParser : Army, IParadoxRead
     {
-        private SaveParser SaveParser { get; }
         public ArmyParser(SaveParser save, int armyId)
         {
-            SaveParser = save;
             Save = save;
             SaveId = save.SaveId;
             ArmyId = armyId;

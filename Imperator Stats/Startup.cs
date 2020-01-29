@@ -1,6 +1,4 @@
-using System;
 using ImperatorStats.Data;
-using ImperatorStats.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;

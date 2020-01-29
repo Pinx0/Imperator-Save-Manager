@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Imperator.Save
+﻿namespace Imperator.Save
 {
     public class Army
     {
