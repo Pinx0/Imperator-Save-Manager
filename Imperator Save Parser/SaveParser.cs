@@ -168,6 +168,10 @@ namespace Imperator.Save.Parser
                 {
                     cd.SaveId = SaveId;
                 }
+                foreach (var cd in c.Ideas)
+                {
+                    cd.SaveId = SaveId;
+                }
             }
             foreach(var c in FamiliesDictionary.Values.Where(f => f != null))
             {

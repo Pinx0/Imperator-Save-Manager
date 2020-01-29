@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Pdoxcl2Sharp;
 using Imperator.Save.Parser;
 using ImperatorStats.Data;
+using Z.EntityFramework.Plus;
 
 namespace ImperatorStats.Controllers
 {
@@ -109,8 +110,8 @@ namespace ImperatorStats.Controllers
         public IActionResult Technology(int id)
         {
             var countries =_db.Countries.Where(x => x.SaveId == id)
-                .Include(x => x.Players)
-                .Include(x => x.Technologies)
+                .IncludeOptimized(x => x.Players)
+                .IncludeOptimized(x => x.Technologies)
                 .Where(x => x.Players.Count > 0)
                 .ToList().OrderByDescending(x => x.AverageTechLevel).ToList();
             return View(new CountriesViewModel(countries));

@@ -25,10 +25,12 @@ namespace Imperator.Save
         public double MilitaryExperience { get; set; }
         public virtual ICollection<CountryTechnology> Technologies { get; set; } = new List<CountryTechnology>();
         public virtual ICollection<CountryPlayer> Players { get; set; } = new List<CountryPlayer>();
+        public virtual ICollection<CountryIdea> Ideas { get; set; } = new List<CountryIdea>();
         public virtual ICollection<Province> Provinces { get; set; } = new List<Province>();
         public virtual ICollection<Family> Families { get; set; } = new List<Family>();
         public virtual ICollection<Army> Armies { get; set; } = new List<Army>();
         public int StartingPopulation { get; set; }
+        public int TotalInventions { get; set; }
         public double MonthlyManpower { get; set; }
         public double CurrentIncome { get; set; }
         public double EstimatedMonthlyIncome { get; set; }

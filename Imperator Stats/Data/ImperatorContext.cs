@@ -15,6 +15,7 @@ namespace ImperatorStats.Data
         public DbSet<Province> Provinces { get; set; }
         public DbSet<CountryPlayer> CountryPlayers { get; set; }
         public DbSet<CountryTechnology> CountryTechnologies { get; set; }
+        public DbSet<CountryIdea> CountryIdeas { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
            // optionsBuilder.UseLazyLoadingProxies();
@@ -33,6 +34,7 @@ namespace ImperatorStats.Data
             this.BulkInsert(save.CountriesDictionary.Values.Where(f => f != null));
             this.BulkInsert(save.CountriesDictionary.Values.Where(f => f != null).SelectMany(c => c.Players));
             this.BulkInsert(save.CountriesDictionary.Values.Where(f => f != null).SelectMany(c => c.Technologies));
+            this.BulkInsert(save.CountriesDictionary.Values.Where(f => f != null).SelectMany(c => c.Ideas));
             this.BulkInsert(save.ProvincesDictionary.Values.Where(f => f != null));
             this.BulkInsert(save.ArmiesDictionary.Values.Where(f => f != null));
             return save.SaveId;

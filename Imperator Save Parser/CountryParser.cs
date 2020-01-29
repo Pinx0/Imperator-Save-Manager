@@ -1,9 +1,12 @@
-﻿using Pdoxcl2Sharp;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Pdoxcl2Sharp;
 
 namespace Imperator.Save.Parser
 {
     public class CountryParser : Country, IParadoxRead
     {
+        private IList<int> Inventions { get; set; }
         public CountryParser(SaveParser save, int countryId)
         {
             Save = save;
@@ -121,7 +124,7 @@ namespace Imperator.Save.Parser
                     parser.ReadIntList();
                     break;
                 case "ideas":
-                    parser.Parse(new IgnoredEntity());
+                    parser.Parse(new CountryIdeaManager(this));
                     break;
                 case "not_supporting_primary_heir":
                     parser.ReadInt32();
@@ -307,7 +310,8 @@ namespace Imperator.Save.Parser
                     parser.ReadStringList();
                     break;
                 case "active_inventions":
-                    parser.ReadIntList();
+                    Inventions = parser.ReadIntList();
+                    TotalInventions = Inventions.Sum();
                     break;
                 case "export":
                     parser.ReadIntList();

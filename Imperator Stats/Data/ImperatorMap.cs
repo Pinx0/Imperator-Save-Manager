@@ -26,6 +26,7 @@ namespace ImperatorStats.Data
             builder.HasMany(c => c.Players).WithOne(x => x.Country).HasForeignKey(x => new {x.SaveId, x.CountryId});
             builder.HasMany(c => c.Families).WithOne(x => x.Country).HasForeignKey(x => new {x.SaveId, x.OwnerId});
             builder.HasMany(c => c.Armies).WithOne(x => x.Country).HasForeignKey(x => new {x.SaveId, x.CountryId});
+            builder.HasMany(c => c.Ideas).WithOne(x => x.Country).HasForeignKey(x => new {x.SaveId, x.CountryId});
             builder.HasMany(c => c.Provinces).WithOne(x => x.Owner);
             builder.HasKey(c => new { c.SaveId, c.CountryId });
             builder.Ignore(c => c.PlayedBy);
@@ -60,6 +61,15 @@ namespace ImperatorStats.Data
         {
             builder.HasKey(c => new { c.SaveId, c.CountryId, c.Type });
             builder.HasOne(c => c.Country);
+        }
+    }
+    public class CountryIdeaMap : IEntityTypeConfiguration<CountryIdea>
+    {
+        public void Configure(EntityTypeBuilder<CountryIdea> builder)
+        {
+            builder.HasKey(c => new { c.SaveId, c.CountryId, c.Name });
+            builder.HasOne(c => c.Country);
+            builder.Property(c => c.Name).HasMaxLength(100);
         }
     }
     public class ArmyMap : IEntityTypeConfiguration<Army>
