@@ -2,7 +2,7 @@
 {
     public class Religion
     {
+        public string ReligionId { get; set; }
         public string Name { get; set; }
-        public int PopsCount { get; set; }
     }
 }

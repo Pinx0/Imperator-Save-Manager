@@ -1,8 +1,8 @@
 ﻿namespace Imperator.Save
 {
-    public class Culture
+    public class ProvinceName
     {
-        public string CultureId { get; set; }
+        public int ProvinceId { get; set; }
         public string Name { get; set; }
     }
 }

@@ -22,10 +22,10 @@ namespace ImperatorStats.Models
         public int MostPopulatedCityPops => _db.Pops.Count(x => x.Province == MostPopulatedCity && x.SaveId == Save.SaveId);
         public int MostPopulatedSettlementPops => _db.Pops.Count(x => x.Province == MostPopulatedSettlement && x.SaveId == Save.SaveId);
         public int MostPopulatedMetropolisPops => MostPopulatedMetropolis == null ? 0 : _db.Pops.Count(x => x.Province == MostPopulatedMetropolis && x.SaveId == Save.SaveId);
-        public Religion MostSpreadReligion => _db.Pops.Where(x => x.Province != null && x.SaveId == Save.SaveId).GroupBy(x => x.Religion).Select(x => new Religion{Name = x.Key, PopsCount = x.Count()}).OrderByDescending(x => x.PopsCount).First();
+        public ReligionGrouping MostSpreadReligion => _db.Pops.Where(x => x.Province != null && x.SaveId == Save.SaveId).GroupBy(x => x.Religion).Select(x => new ReligionGrouping{Name = x.Key, PopsCount = x.Count()}).OrderByDescending(x => x.PopsCount).First();
         public double MostSpreadReligionPercent => MostSpreadReligion.PopsCount / (double) TotalPops;
-        public Culture MostCommonCulture => _db.Pops.Where(x => x.Province != null && x.SaveId == Save.SaveId).GroupBy(x => x.Culture).Select(x => new Culture{Name = x.Key, PopsCount = x.Count()}).OrderByDescending(x => x.PopsCount).First();
-        public double MostCommonCulturePercent => MostCommonCulture.PopsCount / (double) TotalPops;
+        public CultureGrouping MostCommonCultureGrouping => _db.Pops.Where(x => x.Province != null && x.SaveId == Save.SaveId).GroupBy(x => x.Culture).Select(x => new CultureGrouping{Name = x.Key, PopsCount = x.Count()}).OrderByDescending(x => x.PopsCount).First();
+        public double MostCommonCulturePercent => MostCommonCultureGrouping.PopsCount / (double) TotalPops;
         public Save Save { get;  }
         public int CitizenPops => _db.Pops.Count(x => x.SaveId == Save.SaveId && x.Type == PopType.Citizen);
         public int FreemenPops => _db.Pops.Count(x => x.SaveId == Save.SaveId && x.Type == PopType.Freeman);

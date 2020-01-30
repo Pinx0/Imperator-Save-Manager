@@ -10,14 +10,14 @@ namespace ImperatorStats.Models
 
         public Save Save { get; }
         public int TotalPops { get; }
-        public List<Religion> Religions { get; }
+        public List<ReligionGrouping> Religions { get; }
 
         public ReligionViewModel(Save save, ImperatorContext db)
         {
             Save = save;
             TotalPops = db.Pops.Count(x => x.Province != null && x.SaveId == Save.SaveId);
             Religions = db.Pops.Where(x => x.Province != null && x.SaveId == Save.SaveId).GroupBy(x => x.Religion)
-                .Select(x => new Religion {Name = x.Key, PopsCount = x.Count()}).OrderByDescending(x => x.PopsCount).ToList();
+                .Select(x => new ReligionGrouping {Name = x.Key, PopsCount = x.Count()}).OrderByDescending(x => x.PopsCount).ToList();
         }
     }
 }

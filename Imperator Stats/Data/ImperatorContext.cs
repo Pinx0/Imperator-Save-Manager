@@ -15,6 +15,10 @@ namespace ImperatorStats.Data
         public DbSet<Province> Provinces { get; set; }
         public DbSet<CountryPlayer> CountryPlayers { get; set; }
         public DbSet<CountryTechnology> CountryTechnologies { get; set; }
+        public DbSet<CountryName> CountryNames { get; set; }
+        public DbSet<ProvinceName> ProvinceNames { get; set; }
+        public DbSet<Culture> Cultures { get; set; }
+        public DbSet<Religion> Religions { get; set; }
         public DbSet<CountryIdea> CountryIdeas { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
