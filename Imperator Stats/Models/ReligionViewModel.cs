@@ -16,8 +16,14 @@ namespace ImperatorStats.Models
         {
             Save = save;
             TotalPops = db.Pops.Count(x => x.Province != null && x.SaveId == Save.SaveId);
-            Religions = db.Pops.Where(x => x.Province != null && x.SaveId == Save.SaveId).GroupBy(x => x.Religion)
-                .Select(x => new ReligionGrouping {Name = x.Key, PopsCount = x.Count()}).OrderByDescending(x => x.PopsCount).ToList();
+            Religions = db.Pops.Where(x => x.Province != null && x.SaveId == Save.SaveId).GroupBy(x => x.ReligionId)
+                .Select(x => new ReligionGrouping {ReligionId = x.Key, PopsCount = x.Count()}).OrderByDescending(x => x.PopsCount).ToList();
+            var dictionary = db.Religions.ToList().ToDictionary(x => x.ReligionId, y => y);
+            foreach (var c in Religions)
+            {
+                if(dictionary.ContainsKey(c.ReligionId))
+                    c.Religion = dictionary[c.ReligionId];
+            }
         }
     }
 }

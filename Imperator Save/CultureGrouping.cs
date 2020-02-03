@@ -2,7 +2,8 @@
 {
     public class CultureGrouping
     {
-        public string Name { get; set; }
+        public Culture Culture { get; set; }
         public int PopsCount { get; set; }
+        public string CultureId { get; set; }
     }
 }

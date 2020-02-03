@@ -88,10 +88,10 @@ namespace Imperator.Save.Parser
                     parser.ReadString();
                     break;
                 case "primary_culture":
-                    PrimaryCulture = parser.ReadString();
+                    PrimaryCultureId = parser.ReadString();
                     break;
                 case "religion":
-                    MainReligion = parser.ReadString();
+                    MainReligionId = parser.ReadString();
                     break;
                 case "military_tradition":
                     parser.ReadString();

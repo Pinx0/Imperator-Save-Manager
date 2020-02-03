@@ -43,6 +43,14 @@
     <Compile Remove="Migrations\20200127212416_Initial.Designer.cs" />
     <Compile Remove="Migrations\20200127235219_Second.cs" />
     <Compile Remove="Migrations\20200127235219_Second.Designer.cs" />
+    <Compile Remove="Migrations\20200203195833_Added-Names.cs" />
+    <Compile Remove="Migrations\20200203195833_Added-Names.Designer.cs" />
+    <Compile Remove="Migrations\20200203200308_Added-Names.cs" />
+    <Compile Remove="Migrations\20200203200308_Added-Names.Designer.cs" />
+    <Compile Remove="Migrations\20200203200540_Added-Names.cs" />
+    <Compile Remove="Migrations\20200203200540_Added-Names.Designer.cs" />
+    <Compile Remove="Migrations\20200203204113_Improved-ForeignKeys.cs" />
+    <Compile Remove="Migrations\20200203204113_Improved-ForeignKeys.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

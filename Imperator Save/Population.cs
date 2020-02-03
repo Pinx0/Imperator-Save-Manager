@@ -6,8 +6,11 @@
         public int SaveId { get; set; }
         public int PopId { get; set; }
         public PopType Type { get; set; }
-        public string Culture { get; set; }
-        public string Religion { get; set; }
+        public virtual Culture Culture { get; set; }
+        public virtual Religion Religion { get; set; }
+        public string ReligionId { get; set; }
+        public string CultureId { get; set; }
         public virtual Province Province { get; set; }
+        public int? ProvinceId { get; set; }
     }
 }

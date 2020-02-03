@@ -7,13 +7,16 @@ namespace Imperator.Save
     public class Country 
     {
         public virtual  Save Save { get; set; }
+        public virtual CountryName Name { get; set; }
         public int SaveId { get; set; }
         public int CountryId { get; set; }
         public string Tag { get; set; }
         public string HistoricalTag { get; set; }
         public string FlagTag { get; set; }
-        public string PrimaryCulture { get; set; }
-        public string MainReligion { get; set; }
+        public Culture PrimaryCulture { get; set; }
+        public string PrimaryCultureId { get; set; }
+        public Religion MainReligion { get; set; }
+        public string MainReligionId { get; set; }
         public string CountryType { get; set; }
         public double Manpower { get; set; }
         public double Gold { get; set; }
@@ -27,6 +30,8 @@ namespace Imperator.Save
         public virtual ICollection<CountryPlayer> Players { get; set; } = new List<CountryPlayer>();
         public virtual ICollection<CountryIdea> Ideas { get; set; } = new List<CountryIdea>();
         public virtual ICollection<Province> Provinces { get; set; } = new List<Province>();
+        public virtual ICollection<Province> ProvincesControlled { get; set; } = new List<Province>();
+        public virtual ICollection<Province> ProvincesPreviouslyControlled { get; set; } = new List<Province>();
         public virtual ICollection<Family> Families { get; set; } = new List<Family>();
         public virtual ICollection<Army> Armies { get; set; } = new List<Army>();
         public int StartingPopulation { get; set; }

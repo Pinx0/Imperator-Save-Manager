@@ -30,6 +30,12 @@ namespace ImperatorStats.Controllers
         {
             return View(new SavesListViewModel(_db.Saves.ToList()));
         }
+        [HttpGet("/UploadLocations")]
+        public IActionResult LoadLocations()
+        {
+            _db.UploadLocations();
+            return View("Index");
+        }
         [HttpPost]
         [RequestSizeLimit(200000000)]
         public async Task<IActionResult> UploadSave(List<IFormFile> files)
@@ -101,6 +107,7 @@ namespace ImperatorStats.Controllers
         public IActionResult Economy(int id)
         {
             var countries =_db.Countries.Where(x => x.SaveId == id)
+                .Include(x => x.Name)
                 .Include(x => x.Players)
                 .Where(x => x.Players.Count > 0)
                 .OrderByDescending(x => x.AveragedIncome).ToList();
@@ -110,6 +117,7 @@ namespace ImperatorStats.Controllers
         public IActionResult Technology(int id)
         {
             var countries =_db.Countries.Where(x => x.SaveId == id)
+                .Include(x => x.Name)
                 .IncludeOptimized(x => x.Players)
                 .IncludeOptimized(x => x.Technologies)
                 .Where(x => x.Players.Count > 0)
@@ -120,6 +128,7 @@ namespace ImperatorStats.Controllers
         public IActionResult Demography(int id)
         {
             var countries =_db.Countries.Where(x => x.SaveId == id)
+                .Include(x => x.Name)
                 .Include(x => x.Players)
                 .Include(x => x.Provinces)
                 .ThenInclude(x => x.Pops)
@@ -131,6 +140,7 @@ namespace ImperatorStats.Controllers
         public IActionResult ArmyComposition(int id)
         {
             var countries =_db.Countries.Where(x => x.SaveId == id)
+                .Include(x => x.Name)
                 .Include(x => x.Players)
                 .Include(x => x.Armies)
                 .Where(x => x.Players.Count > 0)
@@ -141,6 +151,7 @@ namespace ImperatorStats.Controllers
         public IActionResult NavyComposition(int id)
         {
             var countries =_db.Countries.Where(x => x.SaveId == id)
+                .Include(x => x.Name)
                 .Include(x => x.Players)
                 .Include(x => x.Armies)
                 .Where(x => x.Players.Count > 0)
@@ -151,6 +162,7 @@ namespace ImperatorStats.Controllers
         public IActionResult Military(int id)
         {
             var countries =_db.Countries.Where(x => x.SaveId == id)
+                .Include(x => x.Name)
                 .Include(x => x.Players)
                 .Include(x => x.Armies)
                 .Where(x => x.Players.Count > 0)

@@ -26,10 +26,10 @@ namespace Imperator.Save.Parser
                     }
                     break;
                 case "culture":
-                    Culture = parser.ReadString();
+                    CultureId = parser.ReadString();
                     break;
                 case "religion":
-                    Religion = parser.ReadString();
+                    ReligionId = parser.ReadString();
                     break;
             }
         }

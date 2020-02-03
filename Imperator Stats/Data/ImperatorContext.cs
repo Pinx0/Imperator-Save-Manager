@@ -43,6 +43,18 @@ namespace ImperatorStats.Data
             this.BulkInsert(save.ArmiesDictionary.Values.Where(f => f != null));
             return save.SaveId;
         }
+        public void UploadLocations()
+        {
+            var provinceNames = GameDataParser.GetProvinceNames();
+            var countryNames = GameDataParser.GetCountryNames();
+            var cultures = GameDataParser.GetCultures();
+            var religions = GameDataParser.GetReligions();
+
+            this.BulkMerge(provinceNames);
+            this.BulkMerge(countryNames);
+            this.BulkMerge(cultures);
+            this.BulkMerge(religions);
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

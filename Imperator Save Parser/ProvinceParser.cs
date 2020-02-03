@@ -23,30 +23,29 @@ namespace Imperator.Save.Parser
                     parser.Parse(new IgnoredEntity());
                     break;
                 case "original_culture":
-                    OriginalCulture = parser.ReadString();
+                    OriginalCultureId = parser.ReadString();
                     break;
                 case "original_religion":
-                    OriginalReligion = parser.ReadString();
+                    OriginalReligionId = parser.ReadString();
                     break;
                 case "culture":
-                    Culture = parser.ReadString();
+                    CultureId = parser.ReadString();
                     break;
                 case "religion":
-                    Religion = parser.ReadString();
+                    ReligionId = parser.ReadString();
                     break;
                 case "state":
                     parser.ReadInt32();
                     break;
                 case "owner":
-                    var ownerId = parser.ReadInt32();
-                    Owner = SaveParser.CountriesDictionary[ownerId];
-                    Owner.Provinces.Add(this);
+                    OwnerId =  parser.ReadInt32();
+
                     break;
                 case "controller":
-                    Controller = SaveParser.CountriesDictionary[parser.ReadInt32()];
+                    ControllerId = parser.ReadInt32();
                     break;
                 case "previous_controller":
-                    PreviousController = SaveParser.CountriesDictionary[parser.ReadInt32()];
+                    PreviousControllerId = parser.ReadInt32();
                     break;
                 case "last_owner_change":
                     LastOwnerChange = parser.ReadDateTime();
@@ -59,7 +58,7 @@ namespace Imperator.Save.Parser
                     break;
                 case "pop":
                     var pop = SaveParser.PopsDictionary[parser.ReadInt32()];
-                    pop.Province = this;
+                    pop.ProvinceId = ProvinceId;
                     //Pops.Add(pop);
                     break;
                 case "growing_pop":
