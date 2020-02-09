@@ -20,6 +20,7 @@ namespace ImperatorStats.Data
         public DbSet<Culture> Cultures { get; set; }
         public DbSet<Religion> Religions { get; set; }
         public DbSet<CountryIdea> CountryIdeas { get; set; }
+        public DbSet<Game> Games { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
            // optionsBuilder.UseLazyLoadingProxies();
