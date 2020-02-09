@@ -76,8 +76,8 @@ namespace Imperator.Save
         public double AverageArmyStrength => Armies.Where(x => x.Class == ArmyClass.Land).Average(x => x.Strength);
         public double MercenaryPercent => Armies.Count(x => x.Class == ArmyClass.Land && x.Category == ArmyCategory.Mercenary) / (double)TotalCohorts;
         public double ClanPercent => Armies.Count(x => x.Class == ArmyClass.Land && x.Category == ArmyCategory.ClanRetinue) / (double)TotalCohorts;
-        public int SameCulturePops => Provinces.SelectMany(p => p.Pops).Count(x => x.Culture == PrimaryCulture);
-        public int SameCultureAndReligionPops => Provinces.SelectMany(p => p.Pops).Count(x => x.Culture == PrimaryCulture && x.Religion == MainReligion);
+        public int SameCulturePops => Provinces.SelectMany(p => p.Pops).Count(x => x.CultureId == PrimaryCultureId);
+        public int SameCultureAndReligionPops => Provinces.SelectMany(p => p.Pops).Count(x => x.CultureId == PrimaryCultureId && x.ReligionId == MainReligionId);
         public int CitizenPops => Provinces.SelectMany(p => p.Pops).Count(x => x.Type == PopType.Citizen);
         public int FreemenPops => Provinces.SelectMany(p => p.Pops).Count(x => x.Type == PopType.Freeman);
         public int TribesmenPops => Provinces.SelectMany(p => p.Pops).Count(x => x.Type == PopType.Tribesman);
