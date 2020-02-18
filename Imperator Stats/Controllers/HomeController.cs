@@ -59,7 +59,10 @@ namespace ImperatorStats.Controllers
                 .Include(x => x.Saves)
                 .FirstOrDefault();
             string response = null;
-            if (game == null) response = "Accessing this game requires a password.";
+            if (game == null)
+            {
+                response = hash == null ? "Accessing this game requires a password." : "You are using an invalid URL.";
+            }
             return View(new GameViewModel(game, id, response));
         }
         [HttpPost("/Game/{id:int}")]
@@ -69,9 +72,12 @@ namespace ImperatorStats.Controllers
             var game = _db.Games.Where(x => x.GameId == id && (x.PasswordHash == null || x.PasswordHash == hash))
                 .Include(x => x.Saves)
                 .FirstOrDefault();
-            string response = null;
-            if (game == null) response = "Wrong password.";
-            return View("Game",new GameViewModel(game, id, response));
+            if (game == null)
+            {
+                return View("Game",new GameViewModel(null, id, "Wrong password."));
+            }
+            return RedirectPermanent("/Game/" + id + "/" + hash);
+            
         }
         [HttpPost("/Game/{id:int}/Upload/{hash?}")]
         [RequestSizeLimit(200000000)]
@@ -179,8 +185,20 @@ namespace ImperatorStats.Controllers
                 .ToList().OrderByDescending(x => x.AverageTechLevel).ToList();
             return View(new CountriesViewModel(countries));
         }
-        [HttpGet("Save/{id:int}/Demography/{hash?}")]
-        public IActionResult Demography(int id, string hash)
+        [HttpGet("Save/{id:int}/DemographyProvinces/{hash?}")]
+        public IActionResult DemographyProvinces(int id, string hash)
+        {
+            var countries =_db.Countries.Where(x => x.SaveId == id && (x.Save.Game.PasswordHash == null || x.Save.Game.PasswordHash == hash))
+                .Include(x => x.Name)
+                .Include(x => x.Players)
+                .Include(x => x.Provinces)
+                .ThenInclude(x => x.Pops)
+                .Where(x => x.Players.Count > 0)
+                .OrderByDescending(x => x.TotalPopulation).ToList();
+            return View(new CountriesViewModel(countries));
+        }
+        [HttpGet("Save/{id:int}/DemographyPops/{hash?}")]
+        public IActionResult DemographyPops(int id, string hash)
         {
             var countries =_db.Countries.Where(x => x.SaveId == id && (x.Save.Game.PasswordHash == null || x.Save.Game.PasswordHash == hash))
                 .Include(x => x.Name)

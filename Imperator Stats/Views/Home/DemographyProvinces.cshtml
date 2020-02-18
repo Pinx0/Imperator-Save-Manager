@@ -22,37 +22,25 @@
                 Total Provinces
             </th>
             <th>
+                Settlements
+            </th>
+            <th style="min-width: 95px;">
+                Cities
+            </th>
+            <th>
+                Metropolis
+            </th>
+            <th>
                 Population Density
             </th>
             <th>
                 Average Civilization
             </th>
             <th>
-                Growth From Start
+                Urbanization (%)
             </th>
             <th>
-                Religious Unity
-            </th>
-            <th>
-                Cultural Unity
-            </th>
-            <th>
-                Same Religion & Culture
-            </th>
-            <th>
-                Citizen (%)
-            </th>
-            <th>
-                Freemen (%)
-            </th>
-            <th>
-                Tribesmen (%)
-            </th>
-            <th>
-                Slaves (%)
-            </th>
-            <th>
-                Disloyal Pops (%)
+                Total Buildings
             </th>
         </tr>
     </thead>
@@ -76,37 +64,25 @@
                 @item.TotalProvinces.ToString("N0")
             </td>
             <td>
+                @item.TotalSettlements.ToString("N0") (@item.SettlementsPercentage.ToString("P0"))
+            </td>
+            <td>
+                @item.TotalCities.ToString("N0") (@item.CitiesPercentage.ToString("P0"))
+            </td>
+            <td>
+                @item.TotalMetropolis.ToString("N0") (@item.MetropolisPercentage.ToString("P0"))
+            </td>
+            <td>
                 @item.PopulationDensity.ToString("N1")
             </td>
             <td>
                 @item.AverageCivilization.ToString("N1")
             </td>
             <td>
-                @item.PopulationGrowth.ToString("N2")x
+                @item.UrbanizationRate.ToString("p1")
             </td>
             <td>
-                @item.ReligiousUnity.ToString("p0")
-            </td>
-            <td>
-                @item.CulturalUnity.ToString("p0")
-            </td>
-            <td>
-                @item.CulturalAndReligiousUnity.ToString("p0")
-            </td>
-            <td>
-                @item.CitizenFraction.ToString("p1")
-            </td>
-            <td>
-                @item.FreemenFraction.ToString("p1")
-            </td>
-            <td>
-                @item.TribesmenFraction.ToString("p1")
-            </td>
-            <td>
-                @item.SlavesFraction.ToString("p1")
-            </td>
-            <td>
-                @item.DisloyaltyPercentage.ToString("P0")
+                @item.TotalBuildings.ToString("N0")
             </td>
         </tr>
     }

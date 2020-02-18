@@ -18,6 +18,7 @@ namespace Imperator.Save
         public string ReligionId { get; set; }
         public double CivilizationValue { get; set; }
         public string TradeGood { get; set; }
+        public int TotalBuildings { get; set; }
         public virtual Country Owner { get; set; }
         public virtual int? OwnerId { get; set; }
         public virtual Country Controller { get; set; }
@@ -29,5 +30,6 @@ namespace Imperator.Save
         public ProvinceRank Rank { get; set; }
         public virtual ICollection<Population> Pops { get; set; } = new List<Population>();
         public virtual ProvinceName Name { get; set; }
+        
     }
 }

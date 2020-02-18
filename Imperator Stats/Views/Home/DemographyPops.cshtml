@@ -1,0 +1,96 @@
+﻿@model CountriesViewModel
+@{
+    ViewData["Title"] = "Demography Info";
+}
+<h1>@ViewData["Title"]</h1>
+<table id="myTable" class="table">
+    <thead>
+        <tr>
+            <th>
+                Tag
+            </th>
+            <th>
+                Country
+            </th>
+            <th>
+                Played By
+            </th>
+            <th>
+                Total Pops
+            </th>
+            <th>
+                Growth From Start
+            </th>
+            <th>
+                Religious Unity
+            </th>
+            <th>
+                Cultural Unity
+            </th>
+            <th>
+                Same Religion & Culture
+            </th>
+            <th>
+                Citizen (%)
+            </th>
+            <th>
+                Freemen (%)
+            </th>
+            <th>
+                Tribesmen (%)
+            </th>
+            <th>
+                Slaves (%)
+            </th>
+            <th>
+                Disloyal Pops (%)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Countries)
+    {
+        <tr>
+            <td>
+                @item.Tag
+            </td>
+            <td>
+                @item.Name?.Name
+            </td>
+            <td>
+                @item.PlayedBy
+            </td>
+            <td>
+                @item.TotalPopulation.ToString("N0")
+            </td>
+            <td>
+                @item.PopulationGrowth.ToString("N2")x
+            </td>
+            <td>
+                @item.ReligiousUnity.ToString("p0")
+            </td>
+            <td>
+                @item.CulturalUnity.ToString("p0")
+            </td>
+            <td>
+                @item.CulturalAndReligiousUnity.ToString("p0")
+            </td>
+            <td>
+                @item.CitizenFraction.ToString("p1")
+            </td>
+            <td>
+                @item.FreemenFraction.ToString("p1")
+            </td>
+            <td>
+                @item.TribesmenFraction.ToString("p1")
+            </td>
+            <td>
+                @item.SlavesFraction.ToString("p1")
+            </td>
+            <td>
+                @item.DisloyaltyPercentage.ToString("P0")
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

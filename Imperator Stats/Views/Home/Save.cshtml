@@ -6,7 +6,8 @@
 <h2>@Model.Save.Date.ToShortDateString()</h2>
 <ul>
     <li><a asp-action="Economy" asp-route-id="@Model.Save.SaveId" asp-route-hash="@Model.Save.Game?.PasswordHash">Economy</a></li>
-    <li><a asp-action="Demography" asp-route-id="@Model.Save.SaveId" asp-route-hash="@Model.Save.Game?.PasswordHash">Demography</a></li>
+    <li><a asp-action="DemographyProvinces" asp-route-id="@Model.Save.SaveId" asp-route-hash="@Model.Save.Game?.PasswordHash">Demography (Provinces)</a></li>
+    <li><a asp-action="DemographyPops" asp-route-id="@Model.Save.SaveId" asp-route-hash="@Model.Save.Game?.PasswordHash">Demography (Pops)</a></li>
     <li><a asp-action="Military" asp-route-id="@Model.Save.SaveId" asp-route-hash="@Model.Save.Game?.PasswordHash">Military</a></li>
     <li><a asp-action="Technology" asp-route-id="@Model.Save.SaveId" asp-route-hash="@Model.Save.Game?.PasswordHash">Technology</a></li>
     <li><a asp-action="Facts" asp-route-id="@Model.Save.SaveId" asp-route-hash="@Model.Save.Game?.PasswordHash">Facts</a></li>

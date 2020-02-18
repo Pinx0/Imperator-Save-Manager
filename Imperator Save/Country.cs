@@ -82,13 +82,22 @@ namespace Imperator.Save
         public int FreemenPops => Provinces.SelectMany(p => p.Pops).Count(x => x.Type == PopType.Freeman);
         public int TribesmenPops => Provinces.SelectMany(p => p.Pops).Count(x => x.Type == PopType.Tribesman);
         public int SlavePops => Provinces.SelectMany(p => p.Pops).Count(x => x.Type == PopType.Slave);
+        public int UrbanizedPops => Provinces.Where(x => x.Rank == ProvinceRank.City || x.Rank == ProvinceRank.Metropolis).SelectMany(p => p.Pops).Count();
         public int TotalProvinces => Provinces.Count;
+        public int TotalBuildings => Provinces.Sum(x => x.TotalBuildings);
+        public int TotalSettlements => Provinces.Count(x => x.Rank == ProvinceRank.Settlement);
+        public int TotalCities => Provinces.Count(x => x.Rank == ProvinceRank.City);
+        public int TotalMetropolis => Provinces.Count(x => x.Rank == ProvinceRank.Metropolis);
+        public double SettlementsPercentage => TotalSettlements/(double)TotalProvinces;
+        public double CitiesPercentage => TotalCities/(double)TotalProvinces;
+        public double MetropolisPercentage => TotalMetropolis/(double)TotalProvinces;
         public double AverageCivilization => Provinces.Sum(p => p.CivilizationValue * p.Pops.Count) / Provinces.Sum(p => p.Pops.Count);
         public double PopulationDensity => TotalPopulation/(double)TotalProvinces;
         public double CitizenFraction => CitizenPops/(double)TotalPopulation;
         public double FreemenFraction => FreemenPops/(double)TotalPopulation;
         public double TribesmenFraction => TribesmenPops/(double)TotalPopulation;
         public double SlavesFraction => SlavePops/(double)TotalPopulation;
+        public double UrbanizationRate => UrbanizedPops/(double)TotalPopulation;
         public double CulturalAndReligiousUnity => SameCultureAndReligionPops/(double)TotalPopulation;
         public double CulturalUnity => SameCulturePops/(double)TotalPopulation;
         public double LastMonthNetEarnings => LastMonthIncome - LastMonthExpense;
@@ -147,5 +156,6 @@ namespace Imperator.Save
         public double HorseArchersPercent => TotalHorseArchers / (double) TotalCohorts;
         public double CamelsPercent => TotalCamels / (double) TotalCohorts;
         public double SupplyTrainsPercent => TotalSupplyTrains / (double) TotalCohorts;
+        
     }
 }

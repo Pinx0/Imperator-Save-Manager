@@ -1,4 +1,5 @@
-﻿using Pdoxcl2Sharp;
+﻿using System.Linq;
+using Pdoxcl2Sharp;
 
 namespace Imperator.Save.Parser
 {
@@ -112,7 +113,8 @@ namespace Imperator.Save.Parser
                     }
                     break;
                 case "buildings":
-                    parser.ReadIntList();
+                    var list = parser.ReadIntList();
+                    TotalBuildings = list.Sum();
                     break;
                 case "looted":
                      parser.ReadDateTime();

@@ -20,6 +20,7 @@ namespace ImperatorStats.Models
         public Province MostPopulatedCity => _db.Provinces.Where(x => x.Rank == ProvinceRank.City  && x.SaveId == Save.SaveId).Include(x => x.Name).OrderByDescending(x => x.Pops.Count).FirstOrDefault();
         public Province MostPopulatedSettlement => _db.Provinces.Where(x => x.Rank == ProvinceRank.Settlement  && x.SaveId == Save.SaveId).Include(x => x.Name).OrderByDescending(x => x.Pops.Count).FirstOrDefault();
         public Province MostPopulatedMetropolis => _db.Provinces.Where(x => x.Rank == ProvinceRank.Metropolis  && x.SaveId == Save.SaveId).Include(x => x.Name).OrderByDescending(x => x.Pops.Count).FirstOrDefault();
+        public Province MostBuildingsProvince => _db.Provinces.Where(x => x.SaveId == Save.SaveId).Include(x => x.Name).OrderByDescending(x => x.TotalBuildings).FirstOrDefault();
         public int MostPopulatedCityPops => _db.Pops.Count(x => x.Province == MostPopulatedCity && x.SaveId == Save.SaveId);
         public int MostPopulatedSettlementPops => _db.Pops.Count(x => x.Province == MostPopulatedSettlement && x.SaveId == Save.SaveId);
         public int MostPopulatedMetropolisPops => MostPopulatedMetropolis == null ? 0 : _db.Pops.Count(x => x.Province == MostPopulatedMetropolis && x.SaveId == Save.SaveId);
