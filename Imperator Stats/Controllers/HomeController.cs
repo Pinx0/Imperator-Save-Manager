@@ -72,7 +72,7 @@ namespace ImperatorStats.Controllers
         [HttpPost("/Game/{id:int}")]
         public IActionResult GameAuth(int id, string gamePassword)
         {
-            var hash = gamePassword.GetSha1();
+            var hash = gamePassword?.GetSha1();
             var game = _db.Games.Where(x => x.GameId == id && (x.PasswordHash == null || x.PasswordHash == hash))
                 .Include(x => x.Saves)
                 .FirstOrDefault();
