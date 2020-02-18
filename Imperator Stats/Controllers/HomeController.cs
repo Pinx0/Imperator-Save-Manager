@@ -38,7 +38,7 @@ namespace ImperatorStats.Controllers
             return View(new GamesListViewModel(_db.Games.Include(x => x.Saves).ToList()));
         }
         [HttpPost("/GameList")]
-        public IActionResult AddGame(string gameName, string gamePassword)
+        public IActionResult AddGamePost(string gameName, string gamePassword)
         {
             string response = "You didn't specify a name.";
             if (gameName != null)
