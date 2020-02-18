@@ -25,9 +25,13 @@ namespace ImperatorStats.Controllers
         }
         public IActionResult Index()
         {
+            return View("GameList",new GamesListViewModel(_db.Games.Include(x => x.Saves).ToList()));
+        }
+        [HttpGet("/AddGame")]
+        public IActionResult AddGame()
+        {
             return View();
         }
-        
         [HttpGet("/GameList")]
         public IActionResult GameList()
         {
@@ -129,7 +133,7 @@ namespace ImperatorStats.Controllers
         public IActionResult LoadLocations()
         {
             _db.UploadLocations();
-            return View("Index");
+            return View("AddGame");
         }
         
         [HttpGet("/Save/{id:int}/{hash?}")]
