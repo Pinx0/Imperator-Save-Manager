@@ -3,14 +3,14 @@ using Imperator.Save;
 
 namespace ImperatorStats.Models
 {
-    public class SavesListViewModel
+    public class GamesListViewModel
     {
-        public IList<Save> Saves { get;  }
+        public IList<Game> Games { get;  }
         public string Message { get;  }
 
-        public SavesListViewModel(IList<Save> saves, string s = null)
+        public GamesListViewModel(IList<Game> games, string s = null)
         {
-            Saves = saves;
+            Games = games;
             Message = s;
         }
     }

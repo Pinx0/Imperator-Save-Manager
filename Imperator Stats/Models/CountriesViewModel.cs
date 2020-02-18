@@ -9,7 +9,7 @@ namespace ImperatorStats.Models
 
         public CountriesViewModel(IList<Country> countries)
         {
-            Countries = countries;
+            Countries = countries ?? new List<Country>();
         }
     }
 }

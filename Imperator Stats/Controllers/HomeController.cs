@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Imperator.Save;
 using Microsoft.AspNetCore.Mvc;
 using ImperatorStats.Models;
 using Microsoft.AspNetCore.Http;
@@ -10,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Pdoxcl2Sharp;
 using Imperator.Save.Parser;
 using ImperatorStats.Data;
+using ImperatorStats.Extensions;
 using Z.EntityFramework.Plus;
 
 namespace ImperatorStats.Controllers
@@ -25,22 +27,63 @@ namespace ImperatorStats.Controllers
         {
             return View();
         }
-        [HttpGet("/SaveList")]
-        public IActionResult SaveList()
+        
+        [HttpGet("/GameList")]
+        public IActionResult GameList()
         {
-            return View(new SavesListViewModel(_db.Saves.ToList()));
+            return View(new GamesListViewModel(_db.Games.Include(x => x.Saves).ToList()));
         }
-        [HttpGet("/UploadLocations")]
-        public IActionResult LoadLocations()
+        [HttpPost("/GameList")]
+        public IActionResult AddGame(string gameName, string gamePassword)
         {
-            _db.UploadLocations();
-            return View("Index");
+            string response = "You didn't specify a name.";
+            if (gameName != null)
+            {
+                var game = new Game {Name = gameName};
+                if (gamePassword != null)
+                {
+                    game.PasswordHash = gamePassword.GetSha1();
+                }
+                _db.Games.Add(game);
+                _db.SaveChanges();
+                response = "Game added successfully.";
+            }
+            return View("GameList",new GamesListViewModel(_db.Games.Include(x => x.Saves).ToList(),response));
         }
-        [HttpPost]
+
+        [HttpGet("/Game/{id:int}/{hash?}")]
+        public IActionResult Game(int id, string hash)
+        {
+            var game = _db.Games
+                .Where(x => x.GameId == id && (x.PasswordHash == null || x.PasswordHash == hash))
+                .Include(x => x.Saves)
+                .FirstOrDefault();
+            string response = null;
+            if (game == null) response = "Accessing this game requires a password.";
+            return View(new GameViewModel(game, id, response));
+        }
+        [HttpPost("/Game/{id:int}")]
+        public IActionResult GameAuth(int id, string gamePassword)
+        {
+            var hash = gamePassword.GetSha1();
+            var game = _db.Games.Where(x => x.GameId == id && (x.PasswordHash == null || x.PasswordHash == hash))
+                .Include(x => x.Saves)
+                .FirstOrDefault();
+            string response = null;
+            if (game == null) response = "Wrong password.";
+            return View("Game",new GameViewModel(game, id, response));
+        }
+        [HttpPost("/Game/{id:int}/Upload/{hash?}")]
         [RequestSizeLimit(200000000)]
-        public async Task<IActionResult> UploadSave(List<IFormFile> files)
+        public async Task<IActionResult> UploadSave(List<IFormFile> files, int id, string hash)
         {
-            string response = "The file you uploaded isn't a decompressed Imperator save.";
+            var game = _db.Games.Where(x => x.GameId == id && (x.PasswordHash == null || x.PasswordHash == hash))
+                .Include(x => x.Saves)
+                .FirstOrDefault();
+            if (game == null)
+            {
+                return View("Game", new GameViewModel(null, id, "You don't have access to this game."));
+            }
             int saveId = 0;
             foreach (var formFile in files)
             {
@@ -56,11 +99,15 @@ namespace ImperatorStats.Controllers
                         await using (var stream = new FileStream(filePath, FileMode.Open))
                         {
                             var save = ParadoxParser.Parse(stream, new SaveParser());
-                            if (_db.Saves.Any(s => s.SaveKey == save.SaveKey))
+                            if (_db.Saves.Any(s => s.SaveKey == save.SaveKey && s.GameId == id && (s.Game.PasswordHash == null || s.Game.PasswordHash == hash)))
                             {
-                                var oldSave =_db.Saves.FirstOrDefault(s => s.SaveKey == save.SaveKey);
+                                var oldSave =_db.Saves.Where(s => s.SaveKey == save.SaveKey && (s.Game.PasswordHash == null || s.Game.PasswordHash == hash))
+                                    .Include(x => x.Game)
+                                    .FirstOrDefault();
                                 return View("Save",new SaveViewModel(oldSave));
                             }
+
+                            save.GameId = game.GameId;
                             saveId = _db.BulkSave(save);
                         }
                     }
@@ -68,55 +115,63 @@ namespace ImperatorStats.Controllers
             }
             if (saveId == 0)
             {
-                return View("SaveList", new SavesListViewModel(_db.Saves.Take(20).ToList(), response));
+                return View("Game", new GameViewModel(game, game.GameId, "The file you uploaded isn't a decompressed Imperator save or it couldn't be parsed."));
             }
-            var currentSave =_db.Saves.Find(saveId);
-            return View("Save",new SaveViewModel(currentSave));
+            return View("Game", new GameViewModel(game, game.GameId));
         }
-        [HttpGet("/{id:int}")]
-        public IActionResult Save(int id)
+        [HttpGet("/UploadLocations")]
+        public IActionResult LoadLocations()
         {
-            var save =_db.Saves.Find(id);
+            _db.UploadLocations();
+            return View("Index");
+        }
+        
+        [HttpGet("/Save/{id:int}/{hash?}")]
+        public IActionResult Save(int id, string hash)
+        {
+            var save =_db.Saves.Where(x => x.SaveId == id && (x.Game.PasswordHash == null || x.Game.PasswordHash == hash))
+                .Include(x => x.Game)
+                .FirstOrDefault();
             return View(new SaveViewModel(save));
         }
-        [HttpGet("{id:int}/Facts")]
-        public IActionResult Facts(int id)
+        [HttpGet("Save/{id:int}/Facts/{hash?}")]
+        public IActionResult Facts(int id, string hash)
         {
-            var save =_db.Saves.FirstOrDefault(x => x.SaveId == id);
+            var save =_db.Saves.FirstOrDefault(x => x.SaveId == id && (x.Game.PasswordHash == null || x.Game.PasswordHash == hash));
             return View(new FactsViewModel(save, _db));
         }
-        [HttpGet("{id:int}/Religion")]
-        public IActionResult Religion(int id)
+        [HttpGet("Save/{id:int}/Religion/{hash?}")]
+        public IActionResult Religion(int id, string hash)
         {
-            var save =_db.Saves.FirstOrDefault(x => x.SaveId == id);
+            var save =_db.Saves.FirstOrDefault(x => x.SaveId == id && (x.Game.PasswordHash == null || x.Game.PasswordHash == hash));
             return View(new ReligionViewModel(save, _db));
         }
-        [HttpGet("{id:int}/TradeGoods")]
-        public IActionResult TradeGoods(int id)
+        [HttpGet("Save/{id:int}/TradeGoods/{hash?}")]
+        public IActionResult TradeGoods(int id, string hash)
         {
-            var save =_db.Saves.FirstOrDefault(x => x.SaveId == id);
+            var save =_db.Saves.FirstOrDefault(x => x.SaveId == id && (x.Game.PasswordHash == null || x.Game.PasswordHash == hash));
             return View(new TradeGoodsViewModel(save, _db));
         }
-        [HttpGet("{id:int}/Culture")]
-        public IActionResult Culture(int id)
+        [HttpGet("Save/{id:int}/Culture/{hash?}")]
+        public IActionResult Culture(int id, string hash)
         {
-            var save =_db.Saves.FirstOrDefault(x => x.SaveId == id);
+            var save =_db.Saves.FirstOrDefault(x => x.SaveId == id && (x.Game.PasswordHash == null || x.Game.PasswordHash == hash));
             return View(new CultureViewModel(save, _db));
         }
-        [HttpGet("{id:int}/Economy")]
-        public IActionResult Economy(int id)
+        [HttpGet("Save/{id:int}/Economy/{hash?}")]
+        public IActionResult Economy(int id, string hash)
         {
-            var countries =_db.Countries.Where(x => x.SaveId == id)
+            var countries =_db.Countries.Where(x => x.SaveId == id && (x.Save.Game.PasswordHash == null || x.Save.Game.PasswordHash == hash))
                 .Include(x => x.Name)
                 .Include(x => x.Players)
                 .Where(x => x.Players.Count > 0)
                 .OrderByDescending(x => x.AveragedIncome).ToList();
             return View(new CountriesViewModel(countries));
         }
-        [HttpGet("{id:int}/Technology")]
-        public IActionResult Technology(int id)
+        [HttpGet("Save/{id:int}/Technology/{hash?}")]
+        public IActionResult Technology(int id, string hash)
         {
-            var countries =_db.Countries.Where(x => x.SaveId == id)
+            var countries =_db.Countries.Where(x => x.SaveId == id && (x.Save.Game.PasswordHash == null || x.Save.Game.PasswordHash == hash))
                 .Include(x => x.Name)
                 .IncludeOptimized(x => x.Players)
                 .IncludeOptimized(x => x.Technologies)
@@ -124,10 +179,10 @@ namespace ImperatorStats.Controllers
                 .ToList().OrderByDescending(x => x.AverageTechLevel).ToList();
             return View(new CountriesViewModel(countries));
         }
-        [HttpGet("{id:int}/Demography")]
-        public IActionResult Demography(int id)
+        [HttpGet("Save/{id:int}/Demography/{hash?}")]
+        public IActionResult Demography(int id, string hash)
         {
-            var countries =_db.Countries.Where(x => x.SaveId == id)
+            var countries =_db.Countries.Where(x => x.SaveId == id && (x.Save.Game.PasswordHash == null || x.Save.Game.PasswordHash == hash))
                 .Include(x => x.Name)
                 .Include(x => x.Players)
                 .Include(x => x.Provinces)
@@ -136,10 +191,10 @@ namespace ImperatorStats.Controllers
                 .OrderByDescending(x => x.TotalPopulation).ToList();
             return View(new CountriesViewModel(countries));
         }
-        [HttpGet("{id:int}/ArmyComposition")]
-        public IActionResult ArmyComposition(int id)
+        [HttpGet("Save/{id:int}/ArmyComposition/{hash?}")]
+        public IActionResult ArmyComposition(int id, string hash)
         {
-            var countries =_db.Countries.Where(x => x.SaveId == id)
+            var countries =_db.Countries.Where(x => x.SaveId == id && (x.Save.Game.PasswordHash == null || x.Save.Game.PasswordHash == hash))
                 .Include(x => x.Name)
                 .Include(x => x.Players)
                 .Include(x => x.Armies)
@@ -147,10 +202,10 @@ namespace ImperatorStats.Controllers
                 .OrderByDescending(x => x.TotalCohorts).ToList();
             return View(new CountriesViewModel(countries));
         }
-        [HttpGet("{id:int}/NavyComposition")]
-        public IActionResult NavyComposition(int id)
+        [HttpGet("Save/{id:int}/NavyComposition/{hash?}")]
+        public IActionResult NavyComposition(int id, string hash)
         {
-            var countries =_db.Countries.Where(x => x.SaveId == id)
+            var countries =_db.Countries.Where(x => x.SaveId == id && (x.Save.Game.PasswordHash == null || x.Save.Game.PasswordHash == hash))
                 .Include(x => x.Name)
                 .Include(x => x.Players)
                 .Include(x => x.Armies)
@@ -158,10 +213,10 @@ namespace ImperatorStats.Controllers
                 .OrderByDescending(x => x.TotalCohorts).ToList();
             return View(new CountriesViewModel(countries));
         }
-        [HttpGet("{id:int}/Military")]
-        public IActionResult Military(int id)
+        [HttpGet("Save/{id:int}/Military/{hash?}")]
+        public IActionResult Military(int id, string hash)
         {
-            var countries =_db.Countries.Where(x => x.SaveId == id)
+            var countries =_db.Countries.Where(x => x.SaveId == id && (x.Save.Game.PasswordHash == null || x.Save.Game.PasswordHash == hash))
                 .Include(x => x.Name)
                 .Include(x => x.Players)
                 .Include(x => x.Armies)

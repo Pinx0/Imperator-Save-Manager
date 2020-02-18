@@ -10,10 +10,20 @@ namespace ImperatorStats.Data
         public void Configure(EntityTypeBuilder<Save> builder)
         {
             builder.HasKey(c => c.SaveId).HasAnnotation("DatabaseGenerated",DatabaseGeneratedOption.Identity);
+            builder.HasOne(c => c.Game);
             builder.HasMany(c => c.Families).WithOne(x => x.Save).HasForeignKey(x => x.SaveId);
             builder.HasMany(c => c.Countries).WithOne(x => x.Save).HasForeignKey(x => x.SaveId);
             builder.HasMany(c => c.Provinces).WithOne(x => x.Save).HasForeignKey(x => x.SaveId);
             builder.HasMany(c => c.Pops).WithOne(x => x.Save).HasForeignKey(x => x.SaveId);
+        }
+    }
+    public class GameMap : IEntityTypeConfiguration<Game>
+    {
+        public void Configure(EntityTypeBuilder<Game> builder)
+        {
+            builder.HasKey(c => c.GameId).HasAnnotation("DatabaseGenerated",DatabaseGeneratedOption.Identity);
+            builder.HasMany(c => c.Saves).WithOne(x => x.Game).HasForeignKey(x => x.GameId);
+
         }
     }
 

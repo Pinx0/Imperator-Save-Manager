@@ -7,8 +7,8 @@ namespace Imperator.Save
         public int GameId { get; set; }
         public string Name { get; set; }
         public string PasswordHash { get; set; }
-        public virtual ICollection<Save> Saves { get; set; } = new List<Save>();
-
-
+        public ICollection<Save> Saves { get; set; } = new List<Save>();
+        private bool IsPublic => PasswordHash == null;
+        public string IsPublicString => IsPublic ? "Yes" : "No";
     }
 }

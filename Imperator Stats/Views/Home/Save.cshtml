@@ -2,15 +2,18 @@
 @{
     ViewData["Title"] = "Save";
 }
-    <h1>@ViewData["Title"] @Html.ViewData.Model.Save.SaveId</h1>
-<h2>@Html.ViewData.Model.Save.Date.ToShortDateString()</h2>
-<a asp-action="Economy" asp-route-id="@Html.ViewData.Model.Save.SaveId">Economy</a>
-<a asp-action="Demography" asp-route-id="@Html.ViewData.Model.Save.SaveId">Demography</a>
-<a asp-action="Military" asp-route-id="@Html.ViewData.Model.Save.SaveId">Military</a>
-<a asp-action="Technology" asp-route-id="@Html.ViewData.Model.Save.SaveId">Technology</a>
-<a asp-action="Facts" asp-route-id="@Html.ViewData.Model.Save.SaveId">Facts</a>
-<a asp-action="Religion" asp-route-id="@Html.ViewData.Model.Save.SaveId">Religion</a>
-<a asp-action="Culture" asp-route-id="@Html.ViewData.Model.Save.SaveId">Culture</a>
-<a asp-action="TradeGoods" asp-route-id="@Html.ViewData.Model.Save.SaveId">Trade goods</a>
-<a asp-action="ArmyComposition" asp-route-id="@Html.ViewData.Model.Save.SaveId">Army composition</a>
-<a asp-action="NavyComposition" asp-route-id="@Html.ViewData.Model.Save.SaveId">Navy composition</a>
+    <h1>@ViewData["Title"] @Model.Save.SaveId</h1>
+<h2>@Model.Save.Date.ToShortDateString()</h2>
+<ul>
+    <li><a asp-action="Economy" asp-route-id="@Model.Save.SaveId" asp-route-hash="@Model.Save.Game?.PasswordHash">Economy</a></li>
+    <li><a asp-action="Demography" asp-route-id="@Model.Save.SaveId" asp-route-hash="@Model.Save.Game?.PasswordHash">Demography</a></li>
+    <li><a asp-action="Military" asp-route-id="@Model.Save.SaveId" asp-route-hash="@Model.Save.Game?.PasswordHash">Military</a></li>
+    <li><a asp-action="Technology" asp-route-id="@Model.Save.SaveId" asp-route-hash="@Model.Save.Game?.PasswordHash">Technology</a></li>
+    <li><a asp-action="Facts" asp-route-id="@Model.Save.SaveId" asp-route-hash="@Model.Save.Game?.PasswordHash">Facts</a></li>
+    <li><a asp-action="Religion" asp-route-id="@Model.Save.SaveId" asp-route-hash="@Model.Save.Game?.PasswordHash">Religion</a></li>
+    <li><a asp-action="Culture" asp-route-id="@Model.Save.SaveId" asp-route-hash="@Model.Save.Game?.PasswordHash">Culture</a></li>
+    <li><a asp-action="TradeGoods" asp-route-id="@Model.Save.SaveId" asp-route-hash="@Model.Save.Game?.PasswordHash">Trade goods</a></li>
+    <li><a asp-action="ArmyComposition" asp-route-id="@Model.Save.SaveId" asp-route-hash="@Model.Save.Game?.PasswordHash">Army composition</a></li>
+    <li><a asp-action="NavyComposition" asp-route-id="@Model.Save.SaveId" asp-route-hash="@Model.Save.Game?.PasswordHash">Navy composition</a></li>
+</ul>
+

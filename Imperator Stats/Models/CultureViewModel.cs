@@ -14,7 +14,7 @@ namespace ImperatorStats.Models
 
         public CultureViewModel(Save save, ImperatorContext db)
         {
-            Save = save;
+            Save = save ?? new Save();
             TotalPops = db.Pops.Count(x => x.Province != null && x.SaveId == Save.SaveId);
             Cultures = db.Pops.Where(x => x.Province != null && x.SaveId == Save.SaveId).GroupBy(x => x.CultureId)
                 .Select(x => new CultureGrouping {CultureId = x.Key, PopsCount = x.Count()}).OrderByDescending(x => x.PopsCount).ToList();

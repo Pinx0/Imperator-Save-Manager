@@ -1,6 +1,6 @@
-﻿@model SavesListViewModel
+﻿@model GamesListViewModel
 @{
-    ViewData["Title"] = "Saves";
+    ViewData["Title"] = "Games";
 }
 <h1>@ViewData["Title"]</h1>
 @if (!string.IsNullOrWhiteSpace(Model.Message))
@@ -16,29 +16,41 @@
     <thead>
         <tr>
             <th>
-                Save Id
+                Game Id
             </th>
             <th>
-                Save Key
+                Game Name
             </th>
             <th>
-               
+                Is public?
+            </th>
+            <th>
+                Saves No.
+            </th>
+            <th>
+
             </th>
         </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model.Saves)
+    @foreach (var item in Model.Games)
     {
         <tr>
             <td>
-                @item.SaveId
+                @item.GameId
             </td>
             <td>
-                @item.SaveKey
+                @item.Name
+            </td>
+            <td>
+                @item.IsPublicString
+            </td>
+            <td>
+                @item.Saves.Count
             </td>
             <td>
                 @* ReSharper disable once UnknownCssClass *@
-                <a asp-controller="Home" asp-action="Save" asp-route-id="@item.SaveId"><i class="material-icons">remove_red_eye</i></a>
+                <a asp-controller="Home" asp-action="Game" asp-route-id="@item.GameId"><i class="material-icons">remove_red_eye</i></a>
             </td>
         </tr>
     }

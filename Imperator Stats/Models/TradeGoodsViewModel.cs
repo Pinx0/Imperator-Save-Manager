@@ -15,7 +15,7 @@ namespace ImperatorStats.Models
 
         public TradeGoodsViewModel(Save save, ImperatorContext db)
         {
-            Save = save;
+            Save = save ?? new Save();
             TotalProvinces = db.Provinces.Count(x => x.SaveId == Save.SaveId && x.TradeGood != null);
             TradeGoods = db.Provinces.Where(x => x.SaveId == Save.SaveId && x.TradeGood != null).GroupBy(x => x.TradeGood)
                 .Select(x => new TradeGood {Name = x.Key, Quantity = x.Count(), QuantityProduced =  x.Count()}).OrderByDescending(x => x.Quantity).ToList();

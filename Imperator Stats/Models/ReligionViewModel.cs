@@ -14,7 +14,7 @@ namespace ImperatorStats.Models
 
         public ReligionViewModel(Save save, ImperatorContext db)
         {
-            Save = save;
+            Save = save ?? new Save();
             TotalPops = db.Pops.Count(x => x.Province != null && x.SaveId == Save.SaveId);
             Religions = db.Pops.Where(x => x.Province != null && x.SaveId == Save.SaveId).GroupBy(x => x.ReligionId)
                 .Select(x => new ReligionGrouping {ReligionId = x.Key, PopsCount = x.Count()}).OrderByDescending(x => x.PopsCount).ToList();

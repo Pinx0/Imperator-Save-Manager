@@ -1,0 +1,95 @@
+﻿@model GameViewModel
+@{
+    ViewData["Title"] = Model.Title;
+}
+<h1>@ViewData["Title"]</h1>
+@if (!string.IsNullOrWhiteSpace(Model.Message))
+{
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        @Model.Message
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+@if (Model.HasAccess)
+{
+    <table id="myTable" class="table">
+        <thead>
+            <tr>
+                <th>
+                    Save Id
+                </th>
+                <th>
+                    Save Key
+                </th>
+                <th>
+                    Save Date
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Saves)
+            {
+            <tr>
+                <td>
+                    @item.SaveId
+                </td>
+                <td>
+                    @item.SaveKey
+                </td>
+                <td>
+                    @item.Date.ToShortDateString()
+                </td>
+                <td>
+                    @* ReSharper disable once UnknownCssClass *@
+                    <a asp-controller="Home" asp-action="Save" asp-route-id="@item.SaveId" asp-route-hash="@Model.Game.PasswordHash"><i class="material-icons">remove_red_eye</i></a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            @* ReSharper disable once UnknownCssClass *@
+            <div class="w-file-form">
+                <div class="form-group">
+                    <form method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="UploadSave" asp-route-id="@Model.GameId" asp-route-hash="@(Model.Game.PasswordHash ?? "")">
+                        <div class="custom-file">
+                            <input type="hidden" name="gameId" value="@Model.GameId" />
+                            <input type="file" name="files" class="custom-file-input" multiple />
+                            <label class="custom-file-label" for="customFile"></label>
+                        </div>
+                        <div class="text-center">
+                            <input type="submit" value="Upload" class="btn btn-imperator mt-3" id="customFile" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else if(Model.GameId > 0)
+{
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            @* ReSharper disable once UnknownCssClass *@
+            <div class="w-file-form">
+                <div class="form-group">
+                    <form method="post" asp-controller="Home" asp-action="GameAuth" asp-route-id="@Model.GameId">
+                        <div class="custom-file">
+                            <label for="gamePassword">Password:</label>
+                            <input type="password" name="gamePassword" id="gamePassword"/>
+                        </div>
+                        <div class="text-center">
+                            <input type="submit" value="Access" class="btn btn-imperator mt-3"  />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}

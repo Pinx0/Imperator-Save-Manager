@@ -64,7 +64,7 @@ namespace ImperatorStats.Models
 
         public FactsViewModel(Save save, ImperatorContext db)
         {
-            Save = save;
+            Save = save ?? new Save();
             _db = db;
         }
     }

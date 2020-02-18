@@ -8,7 +8,7 @@ namespace ImperatorStats.Models
 
         public SaveViewModel(Save save)
         {
-            Save = save;
+            Save = save ?? new Save();
         }
     }
 }
